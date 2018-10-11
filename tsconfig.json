@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es6", "es7", "dom"],
+    "jsx": "react",
+    "sourceMap": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,  
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "app": ["app/components/*"]
+    }
+  },
+  "include": [
+    "app/*",
+  ],
+  "exclude": ["node_modules", "dist"]
+}

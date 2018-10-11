@@ -1,0 +1,84 @@
+{
+  "name": "cb-character-stats",
+  "version": "1.0.0",
+  "description": "A reference app to check a character's stats",
+  "main": "index.tsx",
+  "author": "Shelby Hurns",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon ts-node server/server.ts --color",
+    "prod": "cross-env NODE_ENV=production webpack --progress --colors --profile",
+    "test": "jest --watchAll --verbose"
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/app/_tests_/test_setup.js"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "app/**/*",
+      "!app/_tests_/*"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "identity-obj-proxy"
+    }
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.1",
+    "@types/enzyme": "^3.1.14",
+    "@types/express": "^4.16.0",
+    "@types/jest": "^23.3.2",
+    "@types/morgan": "^1.7.35",
+    "@types/react": "^16.4.14",
+    "@types/react-dom": "^16.0.7",
+    "@types/webpack-env": "^1.13.6",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "html-webpack-plugin": "^3.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest-cli": "^23.6.0",
+    "mini-css-extract-plugin": "^0.4.2",
+    "morgan": "^1.9.1",
+    "node-sass": "^4.9.3",
+    "nodemon": "^1.18.4",
+    "prettier": "^1.14.2",
+    "prettier-webpack-plugin": "^1.1.0",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-hot-loader": "^4.3.6",
+    "react-test-renderer": "^16.5.1",
+    "sass-loader": "^7.1.0",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^0.23.0",
+    "ts-jest": "^23.1.4",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.0.3",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.18.0",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-middleware": "^3.3.0",
+    "webpack-dev-server": "^3.1.8",
+    "webpack-hot-middleware": "^2.23.1"
+  }
+}
