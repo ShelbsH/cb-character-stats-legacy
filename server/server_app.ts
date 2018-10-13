@@ -62,11 +62,6 @@ class ServerApp {
     this.app.get('/', (req: Request, res: Response) => {
       res.sendFile(path.join(__dirname, '../views/index.html'));
     });
-
-    //Send image files based on GET request.
-    this.app.get(/^\/.*\.(png|jpg)$/, (req: Request, res: Response) => {
-      res.sendFile(path.join(__dirname, req.url));
-    });
   };
 }
 
