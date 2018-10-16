@@ -12,6 +12,7 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "baseUrl": ".",
+    "noImplicitAny": false,
     "paths": {
       "app": ["app/components/*"]
     }

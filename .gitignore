@@ -3,3 +3,4 @@ dist
 coverage
 Images
 yarn-error.log
+.env

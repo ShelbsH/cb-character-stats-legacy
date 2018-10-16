@@ -1,25 +1,38 @@
 import express, { Request, Response } from 'express';
+import mongoose from 'mongoose';
 import path from 'path';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 
-class ServerApp {
+class App {
   public app: express.Application;
 
   constructor() {
     this.app = express();
     this.config();
-    this.routes();
   }
 
-  public routes = () => {
-    const router: express.Router = express.Router();
-
-    this.app.use('/', router);
-    //More routes goes here...
+  private connectMongo = async (url: string) => {
+    try {
+      await mongoose.connect(
+        url,
+        {
+          useNewUrlParser: true
+        }
+      );
+      console.log('MongoDB is connected');
+    } catch (error) {
+      console.error(`MongoDB connection error:${error}`);
+    }
   };
 
   private config = () => {
+    dotenv.config();
+    //=============================================
+    // Connect to MongoDB
+    this.connectMongo(<string>process.env.MONGODB_CONNECT);
+
     //=============================================
     // Standard tools to be used for the webpack
     // middleware server
@@ -32,6 +45,8 @@ class ServerApp {
     // Set the identifier to set the file path directory
     const filePath = path.resolve(__dirname, 'dist/');
 
+    //=============================================
+    // webpackDevMiddleware should be only used in development
     if (process.env.NODE_ENV === 'development') {
       this.app.use(
         webpackDevMiddleware(compiler, {
@@ -65,4 +80,4 @@ class ServerApp {
   };
 }
 
-export default new ServerApp().app;
+export default new App().app;
