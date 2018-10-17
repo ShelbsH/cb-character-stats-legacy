@@ -1,7 +1,6 @@
 import { Schema, model, Model, Document } from 'mongoose';
 
 interface IShowings extends Document {
-  id: Schema.Types.ObjectId;
   type: string;
   images: string[];
   description: string;
@@ -10,19 +9,12 @@ interface IShowings extends Document {
 
 const showingsSchema = new Schema(
   {
-    id: Schema.Types.ObjectId,
     character: {
       type: Schema.Types.ObjectId,
       ref: 'Character'
     },
-    images: {
-      required: true,
-      type: [String]
-    },
-    description: {
-      required: true,
-      type: String
-    },
+    images: { required: true, type: [String] },
+    description: { required: true, type: String },
     fromIssue: String
   },
   {

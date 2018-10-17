@@ -1,7 +1,6 @@
 import { Schema, model, Model, Document } from 'mongoose';
 
 interface ICharacter extends Document {
-  id: Schema.Types.ObjectId;
   name: string;
   alias: string;
   abilities: string[];
@@ -13,13 +12,12 @@ interface ICharacter extends Document {
 
 const characterSchema = new Schema(
   {
-    id: Schema.Types.ObjectId,
-    name: String,
-    alias: String,
-    abilities: [String],
-    powerLevel: String,
-    avatarUrl: String,
-    publisher: String,
+    name: { required: true, type: String },
+    alias: { required: true, type: String },
+    abilities: { required: true, type: [String] },
+    powerLevel: { required: true, type: String },
+    avatarUrl: { required: true, type: String },
+    publisher: { required: true, type: String },
     showings: [
       {
         type: Schema.Types.ObjectId,

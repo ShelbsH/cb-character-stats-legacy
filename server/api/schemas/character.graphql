@@ -1,3 +1,5 @@
+scalar Date
+
 type Character {
   id: ID!
   name: String!
@@ -6,12 +8,14 @@ type Character {
   powerLevel: String!
   avatarUrl: String
   publisher: String!
+  createdAt: Date
+  updatedAt: Date
 }
 
 input addCharacterProfile {
   name: String!
   alias: String!
-  abilities: String!
+  abilities: [String!]!
   powerLevel: String!
   avatarUrl: String
   publisher: String!

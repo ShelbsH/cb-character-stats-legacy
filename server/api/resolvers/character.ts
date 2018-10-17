@@ -1,19 +1,22 @@
 export const getCharacterProfiles = async (...args) => {
   const [, , ctx] = args;
   try {
-    await ctx.models.character.find({});
+    const allCharacters = await ctx.models.character.find().exec();
+
+    return allCharacters;
   } catch (error) {
-    throw Error(`Internal error: ${error}`);
+    throw Error(`Error on the getting character profiles: ${error}`);
   }
 };
 
 export const addCharacterProfile = async (_, { input }, ctx) => {
   try {
-    await new ctx.models.character({
+    const newCharacterProfile = await new ctx.models.character({
       ...input
-    });
+    }).save();
+
+    return newCharacterProfile;
+  } catch (error) {
+    throw Error(`Unable to add character profile. Error: ${error}`);
   }
-  catch(err) {
-    throw Error('Unable to add character profile');
-  }
-}
+};
