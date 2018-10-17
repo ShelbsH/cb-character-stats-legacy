@@ -3336,6 +3336,14 @@ graphql-import@^0.7.1:
     lodash "^4.17.4"
     resolve-from "^4.0.0"
 
+graphql-resolvers@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/graphql-resolvers/-/graphql-resolvers-0.2.2.tgz#911310367cf16a70b97b73da9f19d9598137851f"
+  integrity sha512-J3+A0A1nk2ff5ChKZfMYNLYqaDtTTX4IiIKR3nsE7ilhff8cQxUJ+joMU9ZKPD4ADAS9cTmDAZ4Gn3KojbbIiA==
+  dependencies:
+    deep-equal "^1.0.1"
+    object-path "^0.11.4"
+
 graphql-subscriptions@^0.5.8:
   version "0.5.8"
   resolved "https://registry.yarnpkg.com/graphql-subscriptions/-/graphql-subscriptions-0.5.8.tgz#13a6143c546bce390404657dc73ca501def30aa7"

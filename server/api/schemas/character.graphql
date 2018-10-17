@@ -1,0 +1,26 @@
+type Character {
+  id: ID!
+  name: String!
+  alias: String!
+  abilities: [String!]!
+  powerLevel: String!
+  avatarUrl: String
+  publisher: String!
+}
+
+input addCharacterProfile {
+  name: String!
+  alias: String!
+  abilities: String!
+  powerLevel: String!
+  avatarUrl: String
+  publisher: String!
+}
+
+type Query {
+  getCharacterProfiles: [Character!]
+}
+
+type Mutation {
+  addCharacterProfile(input: addCharacterProfile): Character
+}

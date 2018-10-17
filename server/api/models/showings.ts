@@ -5,7 +5,7 @@ interface IShowings extends Document {
   type: string;
   images: string[];
   description: string;
-  fromIssue: string;
+  fromIssue?: string;
 }
 
 const showingsSchema = new Schema(
@@ -17,7 +17,7 @@ const showingsSchema = new Schema(
     },
     images: {
       required: true,
-      type: [String],
+      type: [String]
     },
     description: {
       required: true,
