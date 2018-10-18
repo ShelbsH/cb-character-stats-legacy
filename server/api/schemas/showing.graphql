@@ -1,0 +1,26 @@
+scalar Date
+
+type Showing {
+  id: ID!
+  images: [String!]!
+  description: String!
+  fromIssue: String
+  character: String!
+  createdAt: Date
+  updatedAt: Date
+}
+
+input showingInput {
+  images: [String!]!
+  description: String!
+  fromIssue: String
+  character: ID!
+}
+
+type Query {
+  getShowings: [Showing]
+}
+
+type Mutation {
+  addShowing(input: showingInput): Showing
+}

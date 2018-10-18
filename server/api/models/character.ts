@@ -12,6 +12,7 @@ interface ICharacter extends Document {
 
 const characterSchema = new Schema(
   {
+    _id: Schema.Types.ObjectId,
     name: { required: true, type: String },
     alias: { required: true, type: String },
     abilities: { required: true, type: [String] },
@@ -21,7 +22,7 @@ const characterSchema = new Schema(
     showings: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Showings'
+        ref: 'Showing'
       }
     ]
   },

@@ -3,6 +3,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { importSchema } from 'graphql-import';
 import  { resolvers } from './api/resolvers/resolvers';
 import { Character } from './api/models/character';
+import { Showing } from './api/models/showing';
 
 const typeDefs = importSchema('./server/api/schemas/schema.graphql');
 
@@ -11,7 +12,8 @@ const server = new ApolloServer({
   resolvers,
   context: {
     models: {
-      character: Character
+      character: Character,
+      showing: Showing
     }
   }
 });

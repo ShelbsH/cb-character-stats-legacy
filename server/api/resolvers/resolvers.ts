@@ -1,11 +1,20 @@
 import { getCharacterProfiles, addCharacterProfile } from './character';
-import { combineResolvers } from 'graphql-resolvers';
+import { addShowing, getShowings } from './showing';
 
 export const resolvers = {
   Query: {
-    getCharacterProfiles
+    getCharacterProfiles,
+    getShowings
   },
   Mutation: {
-    addCharacterProfile
+    addCharacterProfile,
+    addShowing
+  },
+  Character: {
+    showings: (parent) => {
+      return [{
+        ...parent
+      }];
+    }
   }
 }
