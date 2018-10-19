@@ -12,19 +12,30 @@ interface ICharacter extends Document {
 
 const characterSchema = new Schema(
   {
-    _id: Schema.Types.ObjectId,
-    name: { required: true, type: String },
-    alias: { required: true, type: String },
-    abilities: { required: true, type: [String] },
-    powerLevel: { required: true, type: String },
-    avatarUrl: { required: true, type: String },
-    publisher: { required: true, type: String },
-    showings: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Showing'
-      }
-    ]
+    name: {
+      required: true,
+      type: String
+    },
+    alias: { 
+      required: true, 
+      type: String 
+    },
+    abilities: { 
+      required: true, 
+      type: [String] 
+    },
+    powerLevel: { 
+      required: true, 
+      type: String 
+    },
+    avatarUrl: { 
+      required: true, 
+      type: String 
+    },
+    publisher: { 
+      required: true, 
+      type: String
+     }
   },
   {
     timestamps: true

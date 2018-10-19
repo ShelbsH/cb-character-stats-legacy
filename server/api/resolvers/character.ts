@@ -1,8 +1,9 @@
-import mongoose from 'mongoose';
-
 export const getCharacterProfiles = async (...args) => {
   const [, , ctx] = args;
-  const response = await ctx.models.character.find().exec();
+  const response = await ctx.models.character
+    .find()
+    .populate('showings')
+    .exec();
   try {
     return response;
   } catch (error) {
@@ -12,7 +13,6 @@ export const getCharacterProfiles = async (...args) => {
 
 export const addCharacterProfile = async (_, { input }, ctx) => {
   const response = await new ctx.models.character({
-    _id: new mongoose.Types.ObjectId(),
     ...input
   });
   try {

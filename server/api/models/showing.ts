@@ -14,8 +14,14 @@ const showingSchema = new Schema(
       ref: 'Character',
       required: true
     },
-    images: { required: true, type: [String] },
-    description: { required: true, type: String },
+    images: { 
+      required: true,
+      type: [String]
+     },
+    description: { 
+      required: true, 
+      type: String 
+    },
     fromIssue: {
       type: String,
       default: 'N/A'

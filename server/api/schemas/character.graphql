@@ -10,7 +10,6 @@ type Character {
   publisher: String!
   createdAt: Date
   updatedAt: Date
-  showings: [Showing]
 }
 
 input addCharacterProfile {

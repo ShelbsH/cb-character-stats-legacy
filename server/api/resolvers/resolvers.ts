@@ -1,20 +1,15 @@
 import { getCharacterProfiles, addCharacterProfile } from './character';
-import { addShowing, getShowings } from './showing';
+import { addShowing, getShowings, Showing, getShowingByCharacter } from './showing';
 
 export const resolvers = {
   Query: {
     getCharacterProfiles,
-    getShowings
+    getShowings,
+    getShowingByCharacter
   },
   Mutation: {
     addCharacterProfile,
     addShowing
   },
-  Character: {
-    showings: (parent) => {
-      return [{
-        ...parent
-      }];
-    }
-  }
+  Showing
 }

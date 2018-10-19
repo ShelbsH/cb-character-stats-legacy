@@ -5,9 +5,9 @@ type Showing {
   images: [String!]!
   description: String!
   fromIssue: String
-  character: String!
   createdAt: Date
   updatedAt: Date
+  character: Character
 }
 
 input showingInput {
@@ -18,7 +18,8 @@ input showingInput {
 }
 
 type Query {
-  getShowings: [Showing]
+  getShowings: [Showing]!
+  getShowingByCharacter(id: ID!): [Showing]!
 }
 
 type Mutation {
