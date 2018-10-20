@@ -1,3 +1,6 @@
+
+//Query
+
 export const getCharacterProfiles = async (...args) => {
   const [, , ctx] = args;
   const response = await ctx.models.character
@@ -10,6 +13,8 @@ export const getCharacterProfiles = async (...args) => {
     throw Error(`Error on the getting character profiles: ${error}`);
   }
 };
+
+//Mutation
 
 export const addCharacterProfile = async (_, { input }, ctx) => {
   const response = await new ctx.models.character({

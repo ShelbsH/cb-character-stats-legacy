@@ -7,7 +7,7 @@ type Showing {
   fromIssue: String
   createdAt: Date
   updatedAt: Date
-  character: Character
+  character: Character!
 }
 
 input showingInput {
