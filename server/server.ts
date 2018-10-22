@@ -1,15 +1,11 @@
 import app from './app';
 import { ApolloServer } from 'apollo-server-express';
-import { importSchema } from 'graphql-import';
-import  { resolvers } from './api/resolvers/resolvers';
 import { Character } from './api/models/character';
 import { Showing } from './api/models/showing';
-
-const typeDefs = importSchema('./server/api/schemas/schema.graphql');
+import { schema } from './api/schemas/schema';
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   context: {
     models: {
       character: Character,
