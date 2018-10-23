@@ -14,7 +14,8 @@ const characterSchema = new Schema(
   {
     name: {
       required: true,
-      type: String
+      type: String,
+      unique: true
     },
     alias: { 
       required: true, 
