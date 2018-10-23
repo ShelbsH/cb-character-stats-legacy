@@ -1,5 +1,6 @@
 import app from './app';
 import { ApolloServer } from 'apollo-server-express';
+import { formatError } from 'apollo-errors';
 import { Character } from './api/models/character';
 import { Showing } from './api/models/showing';
 import { schema } from './api/schemas/schema';
@@ -11,7 +12,9 @@ const server = new ApolloServer({
       character: Character,
       showing: Showing
     }
-  }
+  },
+  formatError,
+  tracing: false
 });
 
 server.applyMiddleware({ app });

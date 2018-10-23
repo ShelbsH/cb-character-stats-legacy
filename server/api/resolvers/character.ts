@@ -1,3 +1,5 @@
+import { NotFoundError, UnknownError } from './errors';
+
 export const resolvers = {
   Query: {
     getCharacterProfiles: async (...args) => {
@@ -6,11 +8,15 @@ export const resolvers = {
         .find()
         .populate('showings')
         .exec();
-      try {
-        return response;
-      } catch (error) {
-        throw Error(`Error on the getting character profiles: ${error}`);
+
+      if (!response.length) {
+        throw new NotFoundError({
+          internalData: {
+            message: "There's no character that exists in the database. Create some"
+          }
+        });
       }
+      return response;
     }
   },
   Mutation: {
@@ -19,10 +25,26 @@ export const resolvers = {
         ...input
       });
       try {
-        response.save();
-        return response;
+        let newResponse = response.save();
+        return newResponse;
       } catch (error) {
-        throw Error(`Unable to add character profile. Error: ${error}`);
+        throw new UnknownError();
+      }
+    },
+    removeCharacterProfile: async (_, { id }, ctx) => {
+      const { character } = ctx.models;
+      await character.findByIdAndDelete(id);
+
+      try {
+        return {
+          message: 'Character profile removed successfully'
+        };
+      } catch (error) {
+        throw new UnknownError({
+          internalData: {
+            error
+          }
+        });
       }
     }
   }

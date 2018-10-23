@@ -1,5 +1,9 @@
 scalar Date
 
+type updateMessage {
+  message: String
+}
+
 type Showing {
   id: ID!
   images: [String!]!
@@ -7,7 +11,8 @@ type Showing {
   fromIssue: String
   createdAt: Date
   updatedAt: Date
-  character: Character!
+  #Character type from src './character.graphql'
+  character: Character! 
 }
 
 input showingInput {
@@ -24,4 +29,5 @@ type Query {
 
 type Mutation {
   addShowing(input: showingInput): Showing
+  removeShowing(id: ID!): updateMessage
 }

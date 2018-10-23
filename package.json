@@ -38,12 +38,12 @@
   },
   "dependencies": {
     "@types/dotenv": "^4.0.3",
+    "apollo-errors": "^1.9.0",
     "apollo-server-express": "^2.1.0",
     "dotenv": "^6.1.0",
     "express": "^4.16.3",
     "graphql": "git://github.com/graphql/graphql-js.git#npm",
     "graphql-import": "^0.7.1",
-    "graphql-resolvers": "^0.2.2",
     "mongoose": "^5.3.3"
   },
   "devDependencies": {

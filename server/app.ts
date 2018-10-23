@@ -21,6 +21,7 @@ class App {
           useNewUrlParser: true
         }
       );
+      mongoose.set('useCreateIndex', true);
       console.log('MongoDB is connected');
     } catch (error) {
       console.error(`MongoDB connection error:${error}`);
@@ -73,7 +74,7 @@ class App {
     //Sets the file path directory to load up scripts and styles from the HTML file.
     this.app.use(express.static(filePath));
 
-    //Send the HTML file on root index GET request
+    //Send the HTML file on root index GET request for client-side-rendering
     this.app.get('/', (req: Request, res: Response) => {
       res.sendFile(path.join(__dirname, '../views/index.html'));
     });

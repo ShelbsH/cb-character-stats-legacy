@@ -1,3 +1,5 @@
+import { NotFoundError, UnknownError } from './errors';
+
 export const resolvers = {
   Query: {
     getShowings: async (...args) => {
@@ -7,11 +9,15 @@ export const resolvers = {
         .populate('character')
         .exec();
 
-      try {
-        return response;
-      } catch (error) {
-        throw Error(`Unable to get showings request ${error}`);
+      if (!response.length) {
+        throw new NotFoundError({
+          internalData: {
+            message: "There's no showings that exists in the database"
+          }
+        });
       }
+
+      return response;
     },
     getShowingByCharacter: async (_, { id }, ctx) => {
       const response = await ctx.models.showing
@@ -20,11 +26,11 @@ export const resolvers = {
         })
         .exec();
 
-      try {
-        return response;
-      } catch (error) {
-        throw Error('Unable to find character' + error);
+      if (!response.length) {
+        throw new NotFoundError();
       }
+
+      return response;
     }
   },
   Mutation: {
@@ -32,11 +38,30 @@ export const resolvers = {
       const response = new ctx.models.showing({
         ...input
       });
+
       try {
-        response.save();
+        let newResponse = response.save();
+        return newResponse;
+      } catch (error) {
+        throw new UnknownError({
+          internalData: {
+            error
+          }
+        });
+      }
+    },
+    removeShowing: async (_, { id }, ctx) => {
+      const { showing } = ctx.models;
+      const response = await showing.findByIdAndDelete(id);
+
+      try {
         return response;
       } catch (error) {
-        throw Error(`Unable to create a showing for the character ${error}`);
+        throw new UnknownError({
+          internalData: {
+            error
+          }
+        });
       }
     }
   },

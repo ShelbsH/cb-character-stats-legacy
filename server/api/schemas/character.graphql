@@ -1,5 +1,9 @@
 scalar Date
 
+type updateMessage {
+  message: String
+}
+
 type Character {
   id: ID!
   name: String!
@@ -27,4 +31,5 @@ type Query {
 
 type Mutation {
   addCharacterProfile(input: addCharacterProfile): Character
+  removeCharacterProfile(id: ID!): updateMessage
 }
