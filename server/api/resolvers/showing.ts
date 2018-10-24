@@ -16,7 +16,6 @@ export const resolvers = {
           }
         });
       }
-
       return response;
     },
     getShowingByCharacter: async (_, { id }, ctx) => {
@@ -35,6 +34,14 @@ export const resolvers = {
   },
   Mutation: {
     addShowing: async (_, { input }, ctx) => {
+
+      /**
+       * TODO: Write a condition to check if the 
+       * Character model exists. If the character
+       * exist, add a new showing.
+       * 
+       */
+
       const response = new ctx.models.showing({
         ...input
       });
@@ -52,10 +59,12 @@ export const resolvers = {
     },
     removeShowing: async (_, { id }, ctx) => {
       const { showing } = ctx.models;
-      const response = await showing.findByIdAndDelete(id);
+      await showing.findByIdAndDelete(id);
 
       try {
-        return response;
+        return {
+          message: 'Showing for this character has been removed'
+        };
       } catch (error) {
         throw new UnknownError({
           internalData: {

@@ -24,7 +24,7 @@ input showingInput {
 
 type Query {
   getShowings: [Showing]!
-  getShowingByCharacter(id: ID!): [Showing]!
+  getShowingByCharacter(id: ID!): [Showing!]!
 }
 
 type Mutation {

@@ -11,7 +11,7 @@ export const resolvers = {
 
       if (!response.length) {
         throw new NotFoundError({
-          internalData: {
+          data: {
             message: "There's no character that exists in the database. Create some"
           }
         });
@@ -32,19 +32,27 @@ export const resolvers = {
       }
     },
     removeCharacterProfile: async (_, { id }, ctx) => {
-      const { character } = ctx.models;
-      await character.findByIdAndDelete(id);
+      const { character, showing } = ctx.models;
+      const response = await character.findByIdAndDelete(id);
 
       try {
-        return {
-          message: 'Character profile removed successfully'
-        };
-      } catch (error) {
+        if(response) {
+
+          //Remove all character profile reference objectId
+          await showing.deleteMany({
+            character: id
+          });
+          return {
+            message: 'Character profile removed successfully'
+          }
+        }
+      }
+      catch(error) {
         throw new UnknownError({
           internalData: {
             error
           }
-        });
+        })
       }
     }
   }
