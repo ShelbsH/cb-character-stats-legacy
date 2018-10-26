@@ -34,21 +34,16 @@ export const resolvers = {
   },
   Mutation: {
     addShowing: async (_, { input }, ctx) => {
-
-      /**
-       * TODO: Write a condition to check if the 
-       * Character model exists. If the character
-       * exist, add a new showing.
-       * 
-       */
-
-      const response = new ctx.models.showing({
-        ...input
-      });
+      const objectIdExists = await ctx.models.character.findById(input.character);
 
       try {
-        let newResponse = response.save();
-        return newResponse;
+        if (objectIdExists) {
+          let response = await new ctx.models.showing({
+            ...input
+          }).save();
+
+          return response;
+        }
       } catch (error) {
         throw new UnknownError({
           internalData: {
