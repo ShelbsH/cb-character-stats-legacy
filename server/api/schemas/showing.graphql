@@ -28,6 +28,6 @@ type Query {
 }
 
 type Mutation {
-  addShowing(input: showingInput): Showing
+  addShowing(input: showingInput): Showing!
   removeShowing(id: ID!): updateMessage
 }

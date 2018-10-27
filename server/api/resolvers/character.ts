@@ -21,14 +21,16 @@ export const resolvers = {
   },
   Mutation: {
     addCharacterProfile: async (_, { input }, ctx) => {
-      const response = await new ctx.models.character({
-        ...input
-      });
       try {
-        let newResponse = response.save();
-        return newResponse;
+        return await new ctx.models.character({
+          ...input
+        }).save();
       } catch (error) {
-        throw new UnknownError();
+        throw new UnknownError({
+          data: {
+            error
+          }
+        });
       }
     },
     removeCharacterProfile: async (_, { id }, ctx) => {
@@ -36,23 +38,28 @@ export const resolvers = {
       const response = await character.findByIdAndDelete(id);
 
       try {
-        if(response) {
-
+        if (response) {
           //Remove all character profile reference objectId
           await showing.deleteMany({
             character: id
           });
           return {
             message: 'Character profile removed successfully'
-          }
+          };
+        } else {
+          throw new UnknownError({
+            data: {
+              message:
+                'Server Error: Unable to remove the character\'s profile'
+            }
+          });
         }
-      }
-      catch(error) {
+      } catch (error) {
         throw new UnknownError({
-          internalData: {
+          data: {
             error
           }
-        })
+        });
       }
     }
   }

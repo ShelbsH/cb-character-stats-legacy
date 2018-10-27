@@ -11,7 +11,7 @@ export const resolvers = {
 
       if (!response.length) {
         throw new NotFoundError({
-          internalData: {
+          data: {
             message: "There's no showings that exists in the database"
           }
         });
@@ -46,7 +46,7 @@ export const resolvers = {
         }
       } catch (error) {
         throw new UnknownError({
-          internalData: {
+          data: {
             error
           }
         });
@@ -62,7 +62,7 @@ export const resolvers = {
         };
       } catch (error) {
         throw new UnknownError({
-          internalData: {
+          data: {
             error
           }
         });
