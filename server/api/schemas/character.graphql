@@ -25,6 +25,15 @@ input addCharacterProfile {
   publisher: String!
 }
 
+input updateCharacterProfile {
+  name: String
+  alias: String
+  abilities: [String!]
+  powerLevel: String
+  avatarUrl: String
+  publisher: String
+}
+
 type Query {
   getCharacterProfiles: [Character!]
 }
@@ -32,4 +41,5 @@ type Query {
 type Mutation {
   addCharacterProfile(input: addCharacterProfile): Character
   removeCharacterProfile(id: ID!): updateMessage
+  updateCharacterProfile(id: ID!, input: updateCharacterProfile): Character
 }

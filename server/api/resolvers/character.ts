@@ -33,6 +33,27 @@ export const resolvers = {
         });
       }
     },
+    updateCharacterProfile: async (_, { id, input }, ctx) => {
+      try {
+        return await ctx.models.character.findByIdAndUpdate(
+          id,
+          {
+            $set: {
+              ...input
+            }
+          },
+          {
+            new: true
+          }
+        );
+      } catch (error) {
+        throw new UnknownError({
+          data: {
+            error
+          }
+        });
+      }
+    },
     removeCharacterProfile: async (_, { id }, ctx) => {
       const { character, showing } = ctx.models;
       const response = await character.findByIdAndDelete(id);
@@ -47,12 +68,7 @@ export const resolvers = {
             message: 'Character profile removed successfully'
           };
         } else {
-          throw new UnknownError({
-            data: {
-              message:
-                'Server Error: Unable to remove the character\'s profile'
-            }
-          });
+          throw new UnknownError();
         }
       } catch (error) {
         throw new UnknownError({
