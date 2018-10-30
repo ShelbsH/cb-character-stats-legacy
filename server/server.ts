@@ -14,7 +14,11 @@ const server = new ApolloServer({
     }
   },
   formatError,
-  tracing: false
+  tracing: true,
+  cacheControl: true,
+  engine: {
+    apiKey: process.env.ENGINE_API_KEY
+  }
 });
 
 server.applyMiddleware({ app });
