@@ -60,7 +60,7 @@ module.exports = {
       app: path.resolve(__dirname, "app/"),
       styles: path.resolve(__dirname, 'app/styles/')
     },
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.mjs', '.tsx', '.js', '.jsx']
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
