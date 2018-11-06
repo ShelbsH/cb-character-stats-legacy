@@ -1,4 +1,4 @@
-import { Schema, model, Model, Document, Mongoose } from 'mongoose';
+import { Schema, model, Model, Document } from 'mongoose';
 
 interface IShowing extends Document {
   type: string;
