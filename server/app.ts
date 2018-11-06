@@ -48,17 +48,16 @@ class App {
 
     //=============================================
     // webpackDevMiddleware should be only used in development
-    if (process.env.NODE_ENV === 'development') {
-      this.app.use(
-        webpackDevMiddleware(compiler, {
-          filePath: '/',
-          contentBase: filePath,
-          hot: true
-        })
-      );
 
-      this.app.use(require('webpack-hot-middleware')(compiler));
-    }
+    this.app.use(
+      webpackDevMiddleware(compiler, {
+        filePath: '/',
+        contentBase: filePath,
+        hot: true
+      })
+    );
+
+    this.app.use(require('webpack-hot-middleware')(compiler));
 
     this.app.use(bodyParser.json());
     this.app.use(
