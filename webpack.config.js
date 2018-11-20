@@ -6,6 +6,7 @@ const prettier = require('prettier-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const tsImportPluginFactory = require('ts-import-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -35,13 +36,29 @@ module.exports = {
               plugins: ['react-hot-loader/babel']
             }
           },
-          'awesome-typescript-loader'
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              getCustomTransformers: () => ({
+                before: [
+                  tsImportPluginFactory({
+                    libraryDirectory: 'es',
+                    libraryName: 'antd',
+                    style: 'css'
+                  })
+                ]
+              })
+            },
+            exclude: /node-modules/
+          }
         ].filter(Boolean)
       },
       {
         test: /(\.scss|\.css)/,
         use: [
-          !isProduction ? 'style-loader' : MiniCssExtractPlugin.loader,
+          !isProduction
+            ? 'style-loader'
+            : MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader'
         ]
@@ -57,7 +74,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      app: path.resolve(__dirname, "app/"),
+      app: path.resolve(__dirname, 'app/'),
       styles: path.resolve(__dirname, 'app/styles/')
     },
     extensions: ['.ts', '.mjs', '.tsx', '.js', '.jsx']
