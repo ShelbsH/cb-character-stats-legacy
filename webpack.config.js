@@ -48,8 +48,7 @@ module.exports = {
                   })
                 ]
               })
-            },
-            exclude: /node-modules/
+            }
           }
         ].filter(Boolean)
       },

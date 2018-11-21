@@ -1,0 +1,67 @@
+$purple-color: #722ed1;
+
+@mixin purple-border {
+  border: none;
+  border-top: 2px solid $purple-color;
+}
+
+.header-root {
+  height: auto;
+  padding: 0 30px;
+  box-shadow: 0px 1px 20px 1px rgba(0, 0, 0, 0.4);
+  .header-col:last-child {
+    padding-left: 150px;
+  }
+  .header-col {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .header-search-container {
+      width: 461px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .header-search-icon {
+        color: #ffffff;
+        padding: 0 5px;
+      }
+      .header-search-input {
+        border: none;
+        background-color: transparent;
+        color: #ffffff;
+        font-size: 17px;
+      }
+      //On input focus
+      :focus {
+        border: none;
+        outline: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+    }
+    .header-menu {
+      border: none;
+      text-align: right;
+      line-height: 60px;
+      .header-menu-item {
+        color: #ffffff;
+      }
+      :hover {
+        @include purple-border();
+        color: $purple-color;
+      }
+    }
+  }
+}
+
+.ant-menu-item-selected {
+  border-top: 2px solid $purple-color;
+}
+
+.ant-menu-horizontal > .ant-menu-item-selected {
+  @include purple-border();
+}
+
+.ant-menu-horizontal > .ant-menu-item {
+  border-bottom: none;
+}
