@@ -1,27 +1,38 @@
 import React from "react";
 import { Row, Col, Menu, Input, Icon } from "antd";
-import "../styles/components/Header.scss";
+
+const SearchInput: React.SFC = () => (
+  <div className="header-search-container">
+    <Icon type="search" className="header-search-icon" />
+    <Input
+      placeholder="Search for characters"
+      className="header-search-input"
+    />
+  </div>
+);
+
+const HeaderNav: React.SFC = () => (
+  <Menu mode="horizontal" className="header-menu">
+    <Menu.Item className="header-menu-item">Characters</Menu.Item>
+    <Menu.Item className="header-menu-item">Contact</Menu.Item>
+    <Menu.Item className="header-menu-item">Login</Menu.Item>
+  </Menu>
+);
 
 export class Header extends React.Component {
   render() {
-    const { Item } = Menu;
     return (
       <header>
         <Row className="header-root">
-          <Col span={6} className="header-col" />
-          <Col span={18} className="header-col">
-            <div className="header-search-container">
-              <Icon type="search" className="header-search-icon" />
-              <Input
-                placeholder="Search for characters"
-                className="header-search-input"
-              />
+          <Col span={6} className="header-col">
+            <div className="header-logo-container">
+              <h2 className="header-logo-title">CB Character Stats</h2>
+              <Icon type="menu-fold" className="header-logo-menu" />
             </div>
-            <Menu mode="horizontal" className="header-menu">
-              <Item className="header-menu-item">Characters</Item>
-              <Item className="header-menu-item">Contact</Item>
-              <Item className="header-menu-item">Login</Item>
-            </Menu>
+          </Col>
+          <Col span={18} className="header-col">
+            <SearchInput />
+            <HeaderNav />
           </Col>
         </Row>
       </header>
