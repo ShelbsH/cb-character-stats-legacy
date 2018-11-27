@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
-class App {
+class ServerApp {
   public app: express.Application;
 
   constructor() {
@@ -80,4 +80,4 @@ class App {
   };
 }
 
-export default new App().app;
+export default new ServerApp().app;

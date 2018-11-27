@@ -1,4 +1,4 @@
-import app from './app';
+import app from './serverApp';
 import { ApolloServer } from 'apollo-server-express';
 import { formatError } from 'apollo-errors';
 import { Character } from './api/models/character';
