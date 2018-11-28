@@ -84,7 +84,9 @@ module.exports = {
       filename: '[name].js.map'
     }),
     new prettier({
-      bracketSpacing: true
+      bracketSpacing: true,
+      printWidth: 70,
+      singleQuote: true
     }),
     new HtmlWebpackPlugin({
       template: 'views/index.html'

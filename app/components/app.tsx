@@ -1,6 +1,6 @@
-import React from "react";
-import { hot } from "react-hot-loader";
-import { Header } from "app/components/Header";
+import React from 'react';
+import { hot } from 'react-hot-loader';
+import { Header } from 'app/components/Header';
 
 //TODO: Create routes here
 

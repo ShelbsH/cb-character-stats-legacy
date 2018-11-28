@@ -1,5 +1,7 @@
-import React from "react";
-import { Row, Col, Menu, Input, Icon } from "antd";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Row, Col, Menu, Input, Icon, Dropdown } from 'antd';
 
 const SearchInput: React.SFC = () => (
   <div className="header-search-container">
@@ -19,19 +21,47 @@ const HeaderNav: React.SFC = () => (
   </Menu>
 );
 
+const dropDownMenu = (
+  <Menu className="header-menu-dropdown">
+    <Menu.Item className="header-menu-item">Characters</Menu.Item>
+    <Menu.Item className="header-menu-item">Contact</Menu.Item>
+    <Menu.Item className="header-menu-item">Login</Menu.Item>
+  </Menu>
+);
+
 export class Header extends React.Component {
   render() {
     return (
       <header>
         <Row className="header-root">
-          <Col span={6} className="header-col">
+          <Col
+            lg={6}
+            xl={6}
+            md={6}
+            sm={12}
+            xs={12}
+            className="header-col"
+          >
             <div className="header-logo-container">
-              <h2 className="header-logo-title">CB Character Stats</h2>
+              <h2 className="header-logo-title">Logo</h2>
               <Icon type="menu-fold" className="header-logo-menu" />
             </div>
           </Col>
-          <Col span={18} className="header-col">
+          <Col
+            lg={18}
+            xl={18}
+            md={18}
+            sm={12}
+            xs={12}
+            className="header-col"
+          >
             <SearchInput />
+            <Dropdown trigger={['click']} overlay={dropDownMenu}>
+              <FontAwesomeIcon
+                icon={faBars}
+                className="menu-bar-icon"
+              />
+            </Dropdown>
             <HeaderNav />
           </Col>
         </Row>
