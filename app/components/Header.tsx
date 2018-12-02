@@ -11,7 +11,10 @@ import {
   Layout,
   Avatar
 } from 'antd';
-import { HTMLAttributes } from 'enzyme';
+
+type HeaderLogo = React.HTMLAttributes<HTMLElement> & {
+  type: string;
+};
 
 type Sidebar = {
   isCollapsed: boolean;
@@ -37,7 +40,7 @@ const HeaderMenuNav: React.SFC = () => (
   </Menu>
 );
 
-const HeaderLogo: React.SFC<HTMLAttributes> = ({ ...rest }) => (
+const HeaderLogo: React.SFC<HeaderLogo> = ({ ...rest }) => (
   <div className="header-logo-container">
     <h2 className="header-logo-title">Logo</h2>
     <Icon {...rest} className="header-logo-menu" />
