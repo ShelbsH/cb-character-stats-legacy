@@ -71,7 +71,7 @@ const SidebarMenu: React.SFC = () => (
   <Menu mode="inline">
     <Menu.Item key="1" className="sidebar-menu-item">
       <Icon type="user" />
-      <span>nav 1</span>
+      <span>Add Character</span>
     </Menu.Item>
     <Menu.Item key="2" className="sidebar-menu-item">
       <Icon type="video-camera" />
