@@ -1,26 +1,17 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import {
-  Row,
-  Col,
-  Menu,
-  Input,
-  Icon,
-  Dropdown,
-  Layout,
-  Avatar
-} from 'antd';
+import { Row, Col, Menu, Input, Icon, Dropdown } from 'antd';
 
 type HeaderLogo = React.HTMLAttributes<HTMLElement> & {
   type: string;
 };
 
-type Sidebar = {
-  isCollapsed: boolean;
+type IconSidebar = {
+  hideSidebar: () => void;
 };
 
-type State = Sidebar;
+type Props = IconSidebar;
 
 const SearchInput: React.SFC = () => (
   <div className="header-search-container">
@@ -55,88 +46,30 @@ const dropDownMenu = (
   </Menu>
 );
 
-const SidebarHead: React.SFC = () => (
-  <React.Fragment>
-    <div className="sidebar-header">
-      <h1 className="sidebar-header-h1">Profile</h1>
-    </div>
-    <div className="sidebar-profile">
-      <Avatar size={70} icon="user" />
-      <h2 className="sidebar-profile-h2">MarvelFan_102</h2>
-    </div>
-  </React.Fragment>
-);
-
-const SidebarMenu: React.SFC = () => (
-  <Menu mode="inline">
-    <Menu.Item key="1" className="sidebar-menu-item">
-      <Icon type="user" />
-      <span>Add Character</span>
-    </Menu.Item>
-    <Menu.Item key="2" className="sidebar-menu-item">
-      <Icon type="video-camera" />
-      <span>nav 2</span>
-    </Menu.Item>
-    <Menu.Item key="3" className="sidebar-menu-item">
-      <Icon type="upload" />
-      <span>nav 3</span>
-    </Menu.Item>
-  </Menu>
-);
-
-const Sidebar: React.SFC<Sidebar> = ({ isCollapsed }) => (
-  <Layout.Sider
-    trigger={null}
-    collapsible
-    collapsed={isCollapsed}
-    collapsedWidth={0}
-    className="sidebar"
-  >
-    <SidebarHead />
-    <SidebarMenu />
-  </Layout.Sider>
-);
-
-export class Header extends React.Component<{}, State> {
-  state: State = {
-    isCollapsed: true
-  };
-
-  onCollapsed = () => {
-    this.setState({
-      isCollapsed: !this.state.isCollapsed
-    });
-  };
-
+export class Header extends React.Component<Props> {
   render() {
-    const { isCollapsed } = this.state;
-
+    const { hideSidebar } = this.props;
     return (
-      <Layout>
-        <Sidebar isCollapsed={isCollapsed} />
-        <Layout>
-          <header>
-            <Row className="header-root">
-              <Col md={6} xs={12} className="header-col">
-                <HeaderLogo
-                  type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
-                  onClick={this.onCollapsed}
-                />
-              </Col>
-              <Col md={18} xs={12} className="header-col">
-                <SearchInput />
-                <Dropdown trigger={['click']} overlay={dropDownMenu}>
-                  <FontAwesomeIcon
-                    icon={faBars}
-                    className="menu-bar-icon"
-                  />
-                </Dropdown>
-                <HeaderMenuNav />
-              </Col>
-            </Row>
-          </header>
-        </Layout>
-      </Layout>
+      <header>
+        <Row className="header-root">
+          <Col md={6} xs={12} className="header-col">
+            <HeaderLogo
+              type={hideSidebar ? 'menu-unfold' : 'menu-fold'}
+              onClick={this.props.hideSidebar}
+            />
+          </Col>
+          <Col md={18} xs={12} className="header-col">
+            <SearchInput />
+            <Dropdown trigger={['click']} overlay={dropDownMenu}>
+              <FontAwesomeIcon
+                icon={faBars}
+                className="menu-bar-icon"
+              />
+            </Dropdown>
+            <HeaderMenuNav />
+          </Col>
+        </Row>
+      </header>
     );
   }
 }

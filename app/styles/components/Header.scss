@@ -118,6 +118,10 @@ $header-height: 60px;
   .sidebar-menu-item {
     color: $white;
     border-top: none;
+    .sidebar-menu-item-link {
+      color: $white;
+      text-decoration: none;
+    }
   }
   .sidebar-header {
     display: flex;
