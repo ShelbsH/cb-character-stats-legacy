@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Layout, Icon, Avatar } from 'antd';
 
-type Sidebar = {
+type SidebarProps = {
   isCollapsed: boolean;
 };
 
-type Props = Sidebar;
+type Props = SidebarProps;
 
 const SidebarHead: React.SFC = () => (
   <Layout>
@@ -41,22 +41,20 @@ const SidebarMenu: React.SFC = () => (
   </Menu>
 );
 
-const Sidebar: React.SFC<Sidebar> = ({ isCollapsed }) => (
-  <Layout.Sider
-    trigger={null}
-    collapsible
-    collapsed={isCollapsed}
-    collapsedWidth={0}
-    className="sidebar"
-  >
-    <SidebarHead />
-    <SidebarMenu />
-  </Layout.Sider>
-);
-
-export class SidebarComponent extends React.Component<Props> {
+export class Sidebar extends React.Component<Props> {
   render() {
     const { isCollapsed } = this.props;
-    return <Sidebar isCollapsed={isCollapsed} />;
+    return (
+      <Layout.Sider
+        trigger={null}
+        collapsible
+        collapsed={isCollapsed}
+        collapsedWidth={0}
+        className="sidebar"
+      >
+        <SidebarHead />
+        <SidebarMenu />
+      </Layout.Sider>
+    );
   }
 }
