@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Row, Col, Menu, Input, Icon, Dropdown } from 'antd';
@@ -33,7 +34,11 @@ const HeaderMenuNav: React.SFC = () => (
 
 const HeaderLogo: React.SFC<HeaderLogo> = ({ ...rest }) => (
   <div className="header-logo-container">
-    <h2 className="header-logo-title">Logo</h2>
+    <h2 className="header-logo-title">
+      <Link to="/" className="header-logo-link">
+        Logo
+      </Link>
+    </h2>
     <Icon {...rest} className="header-logo-menu" />
   </div>
 );
