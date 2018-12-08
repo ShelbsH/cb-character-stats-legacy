@@ -1,13 +1,17 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import { Header } from 'app/components/Header';
+import { Home } from 'app/components/view/Home';
 import { AddCharacter } from 'app/components/view/AddCharacter';
-import { SidebarComponent } from 'app/components/Sidebar';
+import { Sidebar } from 'app/components/Sidebar';
 import { Layout } from 'antd';
 
 const Body: React.SFC = () => (
-  <Route path="/Add_Character" component={AddCharacter} />
+  <Switch>
+    <Route exact path="/" component={Home} />
+    <Route path="/Add_Character" component={AddCharacter} />
+  </Switch>
 );
 
 type State = {
@@ -28,7 +32,7 @@ class App extends React.Component<{}, State> {
   render() {
     return (
       <Layout>
-        <SidebarComponent isCollapsed={this.state.hideSidebar} />
+        <Sidebar isCollapsed={this.state.hideSidebar} />
         <Layout>
           <Header hideSidebar={this.onCollapsed} />
           <Body />
