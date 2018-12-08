@@ -70,6 +70,10 @@ $header-height: 60px;
     color: $white;
     margin: 0;
     font-size: 17px;
+    .header-logo-link {
+      color: $white;
+      text-decoration: none;
+    }
   }
   .header-logo-menu {
     color: $white;
@@ -110,41 +114,6 @@ $header-height: 60px;
   position: absolute;
   top: 40.5px;
   font-size: 30px;
-}
-
-.sidebar {
-  height: 100vh;
-  background-color: #120338;
-  .sidebar-menu-item {
-    color: $white;
-    border-top: none;
-    .sidebar-menu-item-link {
-      color: $white;
-      text-decoration: none;
-    }
-  }
-  .sidebar-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: $header-height;
-    background-color: #22075e;
-    .sidebar-header-h1 {
-      color: $white;
-      margin: 0;
-    }
-  }
-  .sidebar-profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 282px;
-    .sidebar-profile-h2 {
-      color: $white;
-      margin-top: 25px;
-    }
-  }
 }
 
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
