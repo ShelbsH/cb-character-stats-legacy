@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import { Header } from 'app/components/Header';
-import { Home } from 'app/components/view/Home';
-import { AddCharacter } from 'app/components/view/AddCharacter';
+import Home from 'app/components/views/Home';
+import { AddCharacter } from 'app/components/views/AddCharacter';
 import { Sidebar } from 'app/components/Sidebar';
 import { Layout } from 'antd';
 

@@ -30,7 +30,7 @@ const characterSchema = new Schema(
       type: String 
     },
     avatarUrl: { 
-      required: true, 
+      required: false, 
       type: String 
     },
     publisher: { 

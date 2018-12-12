@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab');
+@import '../styles/modules/variables';
 
 body {
   background-color: #262626;
@@ -13,6 +14,45 @@ h5 {
   color: #ffffff;
 }
 
+//Ant Design default overridess
+.ant-form-item-label label {
+  color: #ffffff;
+}
+
+.ant-input,
+.ant-select-selection {
+  color: #ffffff;
+  border-color: #121212;
+  background-color: #181818;
+  &:hover {
+    border-color: $purple;
+  }
+  &:focus {
+    border-color: $purple;
+    box-shadow: 0 0 0 2px rgba(114, 46, 209, 0.2);
+  }
+}
+
+.ant-form-explain {
+  color: $white;
+}
+
+.ant-select-arrow-icon {
+  color: $white;
+}
+
+.ant-btn-primary {
+  background-color: $purple;
+  border-color: $purple;
+  &:hover {
+    background-color: $light-purple;
+    border-color: $light-purple;
+  }
+  &:focus {
+    background-color: $light-purple;
+    border-color: $light-purple;
+  }
+}
 .ant-layout {
   background: inherit;
 }

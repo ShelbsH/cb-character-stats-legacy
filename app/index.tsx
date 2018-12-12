@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
-import App from 'app/components/app';
+import App from 'app/components/App';
 import 'styles/app.scss';
 
 const client = new ApolloClient({
