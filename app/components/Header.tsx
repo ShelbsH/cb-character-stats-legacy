@@ -8,11 +8,12 @@ type HeaderLogo = React.HTMLAttributes<HTMLElement> & {
   type: string;
 };
 
-type IconSidebar = {
+type SidebarProps = {
   hideSidebar: () => void;
+  isCollapsed: boolean;
 };
 
-type Props = IconSidebar;
+type Props = SidebarProps;
 
 const SearchInput: React.SFC = () => (
   <div className="header-search-container">
@@ -53,14 +54,15 @@ const dropDownMenu = (
 
 export class Header extends React.Component<Props> {
   render() {
-    const { hideSidebar } = this.props;
+    const { hideSidebar, isCollapsed } = this.props;
+
     return (
       <header>
         <Row className="header-root">
           <Col md={6} xs={12} className="header-col">
             <HeaderLogo
-              type={hideSidebar ? 'menu-unfold' : 'menu-fold'}
-              onClick={this.props.hideSidebar}
+              type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={hideSidebar}
             />
           </Col>
           <Col md={18} xs={12} className="header-col">
