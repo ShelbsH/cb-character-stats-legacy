@@ -1,6 +1,6 @@
 import React from 'react';
 import { RootView } from 'app/components/common/RootView';
-import { Formik, Field } from 'formik';
+import { Formik, Field, FieldProps } from 'formik';
 import {
   InputText,
   InputSelect
@@ -12,17 +12,22 @@ const initialValues = {
   name: '',
   alias: '',
   abilities: [],
+  powerLevel: '',
   publisher: '',
+  powerLevelSelect: ['Street Leveler', 'Powerhouse', 'Skyfather'],
   publisherSelect: ['Marvel', 'DC'],
   abilitiesSelect: []
 };
 
 const validation = Yup.object().shape({
-  name: Yup.string().required(
-    'The name of the character is required'
-  ),
+  name: Yup.string()
+    .min(3)
+    .required('The name of the character is required'),
   alias: Yup.string().required("The character's alias is required"),
   abilities: Yup.string().required('At least one tag is required'),
+  powerLevel: Yup.string().required(
+    'Choosing the power level of the character is required'
+  ),
   publisher: Yup.string().required(
     'Publisher for the character is required'
   )
@@ -85,7 +90,7 @@ export class AddCharacter extends React.Component {
             validateOnBlur={false}
             onSubmit={this.onFormSubmit}
           >
-            {({ errors, values, handleSubmit }) => (
+            {({ values, errors, handleSubmit }) => (
               <Form layout="horizontal" onSubmit={handleSubmit}>
                 <Row gutter={16}>
                   <Col lg={12} className="characterForm-input">
@@ -99,6 +104,7 @@ export class AddCharacter extends React.Component {
                       errorMessage={errors.name}
                       type="text"
                       hasFeedback
+                      values={'string'}
                     />
                     <Field
                       component={InputText}
@@ -120,6 +126,17 @@ export class AddCharacter extends React.Component {
                       hint="add ability tags"
                       errorMessage={errors.abilities}
                       mode="tags"
+                      className="input-tags"
+                      hasFeedback
+                    />
+                    <Field
+                      component={InputSelect}
+                      name="powerLevel"
+                      label="Power Level"
+                      select={values.powerLevelSelect}
+                      labelCol={labelCol}
+                      wrapperCol={wrapperCol}
+                      errorMessage={errors.powerLevel}
                       className="input-select"
                       hasFeedback
                     />
@@ -131,6 +148,7 @@ export class AddCharacter extends React.Component {
                       labelCol={labelCol}
                       wrapperCol={wrapperCol}
                       errorMessage={errors.publisher}
+                      className="input-select"
                       hasFeedback
                     />
                   </Col>

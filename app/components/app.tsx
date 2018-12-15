@@ -30,11 +30,15 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
+    const { hideSidebar } = this.state;
     return (
       <Layout>
-        <Sidebar isCollapsed={this.state.hideSidebar} />
+        <Sidebar isCollapsed={hideSidebar} />
         <Layout>
-          <Header hideSidebar={this.onCollapsed} />
+          <Header
+            hideSidebar={this.onCollapsed}
+            isCollapsed={hideSidebar}
+          />
           <Body />
         </Layout>
       </Layout>
