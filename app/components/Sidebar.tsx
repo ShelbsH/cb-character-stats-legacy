@@ -23,12 +23,12 @@ const SidebarHead: React.SFC = () => (
 const SidebarMenu: React.SFC = () => (
   <Menu mode="inline">
     <Menu.Item key="1" className="sidebar-menu-item">
-      <Icon type="user" />
-      <span>
-        <Link to="/Add_Character" className="sidebar-menu-item-link">
+      <Link to="/Add_Character" className="sidebar-menu-item-link">
+        <span>
+          <Icon type="user" />
           Add Character
-        </Link>
-      </span>
+        </span>
+      </Link>
     </Menu.Item>
     <Menu.Item key="2" className="sidebar-menu-item">
       <Icon type="video-camera" />
