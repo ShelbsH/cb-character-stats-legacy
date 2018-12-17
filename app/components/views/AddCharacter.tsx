@@ -15,8 +15,7 @@ const initialValues = {
   powerLevel: '',
   publisher: '',
   powerLevelSelect: ['Street Leveler', 'Powerhouse', 'Skyfather'],
-  publisherSelect: ['Marvel', 'DC'],
-  abilitiesSelect: []
+  publisherSelect: ['Marvel', 'DC']
 };
 
 const validation = Yup.object().shape({
@@ -36,15 +35,15 @@ const validation = Yup.object().shape({
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 4 },
-    md: { span: 3 },
+    sm: { span: 5 },
+    md: { span: 4 },
     lg: { span: 4 }
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 20 },
+    sm: { span: 18 },
     md: { span: 17 },
-    lg: { span: 20 }
+    lg: { span: 17 }
   }
 };
 
@@ -52,10 +51,10 @@ const tailFormItemLayout = {
   wrapperCol: {
     sm: {
       span: 16,
-      offset: 4
+      offset: 5
     },
     md: {
-      offset: 3
+      offset: 4
     },
     lg: {
       offset: 2
@@ -73,8 +72,9 @@ const uploadButton = (
 export class AddCharacter extends React.Component {
   //TODO: Reset the form after successful submission
 
-  onFormSubmit = () => {
+  onFormSubmit = values => {
     message.info('Your form has been submitted');
+    console.log(values);
   };
 
   render() {
@@ -92,8 +92,8 @@ export class AddCharacter extends React.Component {
           >
             {({ values, errors, handleSubmit }) => (
               <Form layout="horizontal" onSubmit={handleSubmit}>
-                <Row gutter={16}>
-                  <Col lg={12} className="characterForm-input">
+                <Row>
+                  <Col lg={12}>
                     <Field
                       component={InputText}
                       name="name"
@@ -104,7 +104,6 @@ export class AddCharacter extends React.Component {
                       errorMessage={errors.name}
                       type="text"
                       hasFeedback
-                      values={'string'}
                     />
                     <Field
                       component={InputText}
