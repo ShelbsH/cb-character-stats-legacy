@@ -11,25 +11,30 @@ type FormItemProps = {
   hint: string;
 };
 
-type NestedObjects<T> = {
-  [index: string]: T;
+type FieldForm = {
+  setFieldValue: (name: string, value: string) => void;
+  setFieldTouched: (name: string, value: boolean) => void;
+  errors: object;
 };
 
-type FieldProps<T extends NestedObjects<T>> = {
-  errors: T;
-  field: T;
-  select: any;
-  form: any;
+type FieldObject = {
+  name: string;
+};
+
+type FieldProps = {
+  field: FieldObject;
+  select: [];
+  form: FieldForm;
   name: string;
   type: string;
 };
 
-type All = FormItemProps & FieldProps<any>;
+type Props = FormItemProps & FieldProps;
 
 const withFormType = <T extends object>(
   Component: React.ComponentType
 ) =>
-  class WithFormType extends React.Component<T & All> {
+  class WithFormType extends React.Component<T & Props> {
     onChange = (value: string) => {
       const {
         form,
@@ -60,8 +65,6 @@ const withFormType = <T extends object>(
     render() {
       const {
         label,
-
-        errors,
         errorMessage,
         hint,
         field,
@@ -97,9 +100,7 @@ const withFormType = <T extends object>(
             onBlur={this.onBlur}
           >
             {select &&
-              select.map((name, index) => (
-                <Option key={index}>{name}</Option>
-              ))}
+              select.map(name => <Option key={name}>{name}</Option>)}
           </Component>
         </FormItem>
       );
