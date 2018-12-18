@@ -3,14 +3,14 @@ import { Route, Switch } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import { Header } from 'app/components/Header';
 import Home from 'app/components/views/Home';
-import { AddCharacter } from 'app/components/views/AddCharacter';
+import { AddCharacterProfile } from 'app/components/views/AddCharacterProfile';
 import { Sidebar } from 'app/components/Sidebar';
 import { Layout } from 'antd';
 
 const Body: React.SFC = () => (
   <Switch>
     <Route exact path="/" component={Home} />
-    <Route path="/Add_Character" component={AddCharacter} />
+    <Route path="/Add_Character" component={AddCharacterProfile} />
   </Switch>
 );
 
