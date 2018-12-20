@@ -1,14 +1,14 @@
 import React from 'react';
 import { Form, Input, Select } from 'antd';
 
-type FormItemProps = {
+export type FormItemProps = {
   label: string;
-  isError: boolean;
-  labelCol: object;
-  wrapperCol: object;
-  hasFeedback: boolean;
-  errorMessage: string;
-  hint: string;
+  isError?: boolean;
+  labelCol?: object;
+  wrapperCol?: object;
+  hasFeedback?: boolean;
+  errorMessage?: string;
+  hint?: string;
 };
 
 type FieldForm = {
