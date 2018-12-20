@@ -8,6 +8,8 @@ import { AvatarUpload } from 'app/components/AvatarUpload';
 import { Form, Row, Col, Button, message } from 'antd';
 import * as Yup from 'yup';
 
+//TODO: Import formItemPropTypes for type-checking
+
 type NestedObjType<T> = {
   [index: string]: T;
 };
