@@ -103,6 +103,7 @@ const Fields: React.SFC<FormProps> = ({
       mode="tags"
       className="input-tags"
       hasFeedback
+      isRequired="true"
     />
     <Field
       component={InputSelect}
@@ -114,6 +115,7 @@ const Fields: React.SFC<FormProps> = ({
       errorMessage={errors.powerLevel}
       className="input-select"
       hasFeedback
+      isRequired="true"
     />
     <Field
       component={InputSelect}
@@ -125,6 +127,7 @@ const Fields: React.SFC<FormProps> = ({
       errorMessage={errors.publisher}
       className="input-select"
       hasFeedback
+      isRequired="true"
     />
   </React.Fragment>
 );
