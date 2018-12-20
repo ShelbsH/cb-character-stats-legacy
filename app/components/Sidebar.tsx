@@ -21,7 +21,7 @@ const SidebarHead: React.SFC = () => (
 );
 
 const SidebarMenu: React.SFC = () => (
-  <Menu mode="inline">
+  <Menu mode="inline" className="sidebar-root">
     <Menu.Item key="1" className="sidebar-menu-item">
       <Link to="/Add_Character" className="sidebar-menu-item-link">
         <span>

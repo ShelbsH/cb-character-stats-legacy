@@ -1,6 +1,11 @@
+@import '../../styles/modules/variables';
+
 .sidebar {
   height: 100vh;
-  background-color: #120338;
+  background-color: $sidebarMenu-color;
+  .sidebar-root {
+    background-color: $sidebarMenu-color;
+  }
   .sidebar-menu-item {
     color: $white;
     border-top: none;

@@ -4,7 +4,8 @@ import {
   InputSelect
 } from '../components/common/CustomForm';
 import { Field, Formik, FormikErrors } from 'formik';
-import { Form, Row, Col, Upload, Icon, Button, message } from 'antd';
+import { AvatarUpload } from 'app/components/AvatarUpload';
+import { Form, Row, Col, Button, message } from 'antd';
 import * as Yup from 'yup';
 
 type NestedObjType<T> = {
@@ -128,13 +129,6 @@ const Fields: React.SFC<FormProps> = ({
   </React.Fragment>
 );
 
-const uploadButton = (
-  <div>
-    <Icon type="plus" className="avatar-icon" />
-    <div className="avatar-uploadText">Upload</div>
-  </div>
-);
-
 export class AddProfileForm extends React.Component<Props> {
   onFormSubmit = (values, { resetForm }) => {
     const {
@@ -194,19 +188,7 @@ export class AddProfileForm extends React.Component<Props> {
                 />
               </Col>
               <Col lg={12}>
-                <div className="upload-container">
-                  <Upload
-                    name="avatar"
-                    className="avatar-uploader"
-                    listType="picture-card"
-                    multiple={false}
-                  >
-                    {uploadButton}
-                  </Upload>
-                  <p>
-                    Upload image for avatar (<i>optional</i>)
-                  </p>
-                </div>
+                <AvatarUpload />
               </Col>
             </Row>
             <hr className="characterForm-border" />
