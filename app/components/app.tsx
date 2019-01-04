@@ -32,7 +32,7 @@ class App extends React.Component<{}, State> {
   render() {
     const { hideSidebar } = this.state;
     return (
-      <Layout>
+      <Layout className="rootLayout">
         <Sidebar isCollapsed={hideSidebar} />
         <Layout>
           <Header
