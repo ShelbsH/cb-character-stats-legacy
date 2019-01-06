@@ -1,0 +1,44 @@
+@import '../modules/variables';
+@import '../modules/responsive';
+
+.characterForm {
+  border: 1px solid #121212;
+  padding: 28px;
+  border-radius: 5px;
+  background-color: #1e1e1e;
+  .input-tags {
+    width: 100%;
+  }
+  .input-select {
+    width: 170px;
+  }
+  .characterForm-border {
+    border: none;
+    height: 1px;
+    background-color: #595959;
+  }
+  .btnCreate {
+    margin-top: 20px;
+  }
+}
+
+.avatar-uploader > .ant-upload {
+  width: 200px;
+  height: 200px;
+}
+
+.ant-upload.ant-upload-select-picture-card {
+  background-color: transparent;
+  border-color: #595959;
+  &:hover {
+    border-color: $purple;
+  }
+}
+
+@include media-breakpoint-down($desktop-width) {
+  .characterForm {
+    .upload-container {
+      padding-left: 0;
+    }
+  }
+}
