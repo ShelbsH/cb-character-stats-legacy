@@ -159,7 +159,7 @@ export class AddProfileForm extends React.Component<Props> {
       }
     });
 
-    message.info('The form has been submitted');
+    message.success('The form has been submitted');
 
     /**
      * Reset the entire form, except for the initial select values

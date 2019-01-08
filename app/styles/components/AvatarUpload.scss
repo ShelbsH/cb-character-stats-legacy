@@ -1,0 +1,25 @@
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 40px;
+  .avatar-uploader {
+    color: $white;
+  }
+  .avatar-uploadText {
+    color: $white;
+    text-align: center;
+    margin-top: 15px;
+  }
+  .avatar-icon {
+    color: $white;
+    font-size: 40px;
+  }
+  .input-option:hover {
+    background-color: $purple;
+  }
+  .croppedImage {
+    width: 300px;
+    height: 300px;
+  }
+}
