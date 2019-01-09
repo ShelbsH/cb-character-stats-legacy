@@ -1,13 +1,13 @@
 import React from 'react';
 import { Upload, Icon, Modal, message } from 'antd';
-import ReactCrop, { Crop } from 'react-image-crop';
+import ReactCrop, { Crop, PixelCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
 type State = {
-  imgUrl: string;
+  imgUrl: string | ArrayBuffer | null;
   isVisible: boolean;
   crop: Crop;
-  croppedImageUrl: string | null;
+  croppedImageUrl: null | string;
 };
 
 const uploadButton = (
@@ -17,9 +17,9 @@ const uploadButton = (
   </div>
 );
 
-export class AvatarUpload extends React.Component {
-  fileUrl = '';
-  imageRef = '';
+export class AvatarUpload extends React.Component<{}, State> {
+  fileUrl!: string;
+  imageRef!: object;
 
   state: State = {
     imgUrl: '',
@@ -28,7 +28,6 @@ export class AvatarUpload extends React.Component {
       x: 0,
       y: 0,
       width: 30,
-      height: 30,
       aspect: 1
     },
     croppedImageUrl: null
@@ -87,16 +86,19 @@ export class AvatarUpload extends React.Component {
 
   async makeClientCrop(crop, pixelCrop) {
     if (this.imageRef && crop.width && crop.height) {
-      const croppedImageUrl = await this.getCroppedImg(
+      const croppedImageUrl = (await this.getCroppedImg(
         this.imageRef,
         pixelCrop,
         'newFile.jpeg'
-      );
+      )) as string;
       this.setState({ croppedImageUrl });
     }
   }
 
-  onImageLoaded: any = (image: any, pixelCrop: any) => {
+  onImageLoaded: any = (
+    image: HTMLImageElement,
+    pixelCrop: PixelCrop
+  ) => {
     this.imageRef = image;
 
     // Make the library regenerate aspect crops if loading new images.
@@ -104,7 +106,7 @@ export class AvatarUpload extends React.Component {
 
     if (crop.height && crop.width) {
       this.setState({
-        crop: { ...crop, height: null }
+        crop: { ...crop }
       });
     } else {
       this.makeClientCrop(crop, pixelCrop);
@@ -159,7 +161,7 @@ export class AvatarUpload extends React.Component {
         >
           {imgUrl && (
             <ReactCrop
-              src={imgUrl}
+              src={imgUrl as string}
               onChange={this.onImageResize}
               onImageLoaded={this.onImageLoaded}
               onComplete={this.onCropComplete}
