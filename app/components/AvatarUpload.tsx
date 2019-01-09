@@ -4,10 +4,22 @@ import ReactCrop, { Crop, PixelCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
 type State = {
-  imgUrl: string | ArrayBuffer | null;
+  imgUrl: string | null;
   isVisible: boolean;
   crop: Crop;
   croppedImageUrl: null | string;
+};
+
+const initialState = {
+  imgUrl: '',
+  isVisible: false,
+  crop: {
+    x: 0,
+    y: 0,
+    width: 30,
+    aspect: 1
+  },
+  croppedImageUrl: null
 };
 
 const uploadButton = (
@@ -21,17 +33,13 @@ export class AvatarUpload extends React.Component<{}, State> {
   fileUrl!: string;
   imageRef!: object;
 
-  state: State = {
-    imgUrl: '',
-    isVisible: false,
-    crop: {
-      x: 0,
-      y: 0,
-      width: 30,
-      aspect: 1
-    },
-    croppedImageUrl: null
-  };
+  state: State;
+
+  constructor(props) {
+    super(props);
+
+    this.state = initialState;
+  }
 
   onModalCancel = () => {
     this.setState({
@@ -53,29 +61,30 @@ export class AvatarUpload extends React.Component<{}, State> {
   onBeforeUpload = (file: Blob) => {
     const fileTypes = /^image\/(jpeg|png)$/;
 
-    if (fileTypes.test(file.type)) {
-      const fileReader = new FileReader();
-
-      fileReader.onload = () => {
-        this.setState({
-          imgUrl: fileReader.result,
-          isVisible: true
-        });
-      };
-
-      fileReader.readAsDataURL(file);
-    } else {
+    if (!fileTypes.test(file.type)) {
       message.error('Only .jpeg and .png file types are accepted');
     }
 
-    return false;
+    return fileTypes.exec(file.type) === null;
   };
 
-  onImageChange = () => {
-    /**
-     * TODO: Place the FileReader() API here.
-     * Reset the crop state on every image change
-     */
+  onImageChange = ({ file }) => {
+    const { crop } = initialState;
+    const fileReader = new FileReader();
+
+    fileReader.onload = () => {
+      let result = fileReader.result as string;
+      this.setState({
+        imgUrl: result,
+        isVisible: true
+      });
+    };
+
+    fileReader.readAsDataURL(file);
+
+    this.setState({
+      crop
+    });
   };
 
   onImageResize = crop => {
@@ -84,8 +93,8 @@ export class AvatarUpload extends React.Component<{}, State> {
     });
   };
 
-  async makeClientCrop(crop, pixelCrop) {
-    if (this.imageRef && crop.width && crop.height) {
+  async makeClientCrop(crop: Crop, pixelCrop: PixelCrop) {
+    if (this.imageRef && crop.width) {
       const croppedImageUrl = (await this.getCroppedImg(
         this.imageRef,
         pixelCrop,
@@ -161,7 +170,7 @@ export class AvatarUpload extends React.Component<{}, State> {
         >
           {imgUrl && (
             <ReactCrop
-              src={imgUrl as string}
+              src={imgUrl}
               onChange={this.onImageResize}
               onImageLoaded={this.onImageLoaded}
               onComplete={this.onCropComplete}
@@ -177,6 +186,7 @@ export class AvatarUpload extends React.Component<{}, State> {
           multiple={false}
           beforeUpload={this.onBeforeUpload}
           showUploadList={false}
+          onChange={this.onImageChange}
         >
           {croppedImageUrl && !isVisible ? (
             <img src={croppedImageUrl} className="croppedImage" />
