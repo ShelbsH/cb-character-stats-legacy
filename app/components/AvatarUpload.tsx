@@ -17,6 +17,7 @@ const initialState = {
     x: 0,
     y: 0,
     width: 30,
+    height: 30,
     aspect: 1
   },
   croppedImageUrl: null
@@ -31,7 +32,7 @@ const uploadButton = (
 
 export class AvatarUpload extends React.Component<{}, State> {
   fileUrl!: string;
-  imageRef!: object;
+  imageRef!: HTMLImageElement;
 
   state: State;
 
@@ -94,7 +95,7 @@ export class AvatarUpload extends React.Component<{}, State> {
   };
 
   async makeClientCrop(crop: Crop, pixelCrop: PixelCrop) {
-    if (this.imageRef && crop.width) {
+    if (this.imageRef && crop.width && crop.height) {
       const croppedImageUrl = (await this.getCroppedImg(
         this.imageRef,
         pixelCrop,
@@ -115,14 +116,18 @@ export class AvatarUpload extends React.Component<{}, State> {
 
     if (crop.height && crop.width) {
       this.setState({
-        crop: { ...crop }
+        crop: { ...crop, height: undefined }
       });
     } else {
       this.makeClientCrop(crop, pixelCrop);
     }
   };
 
-  getCroppedImg(image, pixelCrop, fileName) {
+  getCroppedImg(
+    image: HTMLImageElement,
+    pixelCrop: PixelCrop,
+    fileName: string
+  ) {
     const canvas = document.createElement('canvas');
     canvas.width = pixelCrop.width;
     canvas.height = pixelCrop.height;
@@ -143,8 +148,7 @@ export class AvatarUpload extends React.Component<{}, State> {
     }
 
     return new Promise(resolve => {
-      canvas.toBlob((blob: any) => {
-        blob.name = fileName;
+      canvas.toBlob(blob => {
         window.URL.revokeObjectURL(this.fileUrl);
         this.fileUrl = window.URL.createObjectURL(blob);
         resolve(this.fileUrl);
@@ -152,7 +156,7 @@ export class AvatarUpload extends React.Component<{}, State> {
     });
   }
 
-  onCropComplete = (crop, pixelCrop) => {
+  onCropComplete = (crop: Crop, pixelCrop: PixelCrop) => {
     this.makeClientCrop(crop, pixelCrop);
   };
 
