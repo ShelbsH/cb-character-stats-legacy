@@ -105,10 +105,7 @@ export class AvatarUpload extends React.Component<{}, State> {
     }
   }
 
-  onImageLoaded: any = (
-    image: HTMLImageElement,
-    pixelCrop: PixelCrop
-  ) => {
+  onImageLoaded = (image: HTMLImageElement, pixelCrop: PixelCrop) => {
     this.imageRef = image;
 
     // Make the library regenerate aspect crops if loading new images.
