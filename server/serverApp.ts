@@ -4,6 +4,7 @@ import path from 'path';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 class ServerApp {
   public app: express.Application;
@@ -48,6 +49,8 @@ class ServerApp {
 
     //=============================================
     // webpackDevMiddleware should be only used in development
+
+    this.app.use(cors());
 
     this.app.use(
       webpackDevMiddleware(compiler, {
