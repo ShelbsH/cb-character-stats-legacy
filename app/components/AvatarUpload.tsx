@@ -17,7 +17,6 @@ const initialState = {
     x: 0,
     y: 0,
     width: 30,
-    height: 30,
     aspect: 1
   },
   croppedImageUrl: null
@@ -77,6 +76,7 @@ export class AvatarUpload extends React.Component<{}, State> {
       let result = fileReader.result as string;
       this.setState({
         imgUrl: result,
+        croppedImageUrl: null,
         isVisible: true
       });
     };
@@ -105,19 +105,8 @@ export class AvatarUpload extends React.Component<{}, State> {
     }
   }
 
-  onImageLoaded = (image: HTMLImageElement, pixelCrop: PixelCrop) => {
+  onImageLoaded = (image: HTMLImageElement) => {
     this.imageRef = image;
-
-    // Make the library regenerate aspect crops if loading new images.
-    const { crop } = this.state;
-
-    if (crop.height && crop.width) {
-      this.setState({
-        crop: { ...crop, height: undefined }
-      });
-    } else {
-      this.makeClientCrop(crop, pixelCrop);
-    }
   };
 
   getCroppedImg(

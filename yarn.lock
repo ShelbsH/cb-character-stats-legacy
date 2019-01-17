@@ -7402,10 +7402,10 @@ react-hot-loader@^4.3.6:
     shallowequal "^1.0.2"
     source-map "^0.7.3"
 
-react-image-crop@^6.0.9:
-  version "6.0.9"
-  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-6.0.9.tgz#5e949cf6503f65819afe44fc5c7ffb3d617ba499"
-  integrity sha512-9O31Eb55Ss/XvJkYxK0XD7HYW2UUAen+GmljBtLSCRGwNHcfbeLL3naLHTKH80bBl+KK+pYaf0aTpoa11CN2SQ==
+react-image-crop@^6.0.11:
+  version "6.0.11"
+  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-6.0.11.tgz#77d482ad203671bcfb5d4a6d185103f37318c91a"
+  integrity sha512-zUU7I4/Jwrb1shAoOrSFxwGkU8ZE1KT0BOEbBtxpxqfCVBk72AQr8ifoz3e5x15hRYB3mu7xZQUUrR34a0SQHw==
   dependencies:
     "@types/react-image-crop" "^3.0.1"
 
