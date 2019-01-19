@@ -8,6 +8,7 @@ type State = {
   isVisible: boolean;
   crop: Crop;
   croppedImageUrl: null | string;
+  blobFile: null | Blob;
 };
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
     width: 30,
     aspect: 1
   },
-  croppedImageUrl: null
+  croppedImageUrl: null,
+  blobFile: null
 };
 
 const uploadButton = (
@@ -49,12 +51,14 @@ export class AvatarUpload extends React.Component<{}, State> {
   };
 
   onModalOk = () => {
-    const { imgUrl } = this.state;
+    const { imgUrl, croppedImageUrl } = this.state;
 
-    if (imgUrl) {
+    if (imgUrl && croppedImageUrl) {
       this.setState({
         isVisible: false
       });
+
+      this.croppedImgToBlob(croppedImageUrl);
     }
   };
 
@@ -144,6 +148,16 @@ export class AvatarUpload extends React.Component<{}, State> {
 
   onCropComplete = (crop: Crop, pixelCrop: PixelCrop) => {
     this.makeClientCrop(crop, pixelCrop);
+  };
+
+  croppedImgToBlob = async blobUrl => {
+    return await fetch(blobUrl).then(data => {
+      data.blob().then(result => {
+        this.setState({
+          blobFile: result
+        });
+      });
+    });
   };
 
   render() {
