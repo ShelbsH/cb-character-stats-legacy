@@ -150,7 +150,7 @@ export class AvatarUpload extends React.Component<{}, State> {
     this.makeClientCrop(crop, pixelCrop);
   };
 
-  croppedImgToBlob = async blobUrl => {
+  croppedImgToBlob = async (blobUrl: string): Promise<void> => {
     return await fetch(blobUrl).then(data => {
       data.blob().then(result => {
         this.setState({
