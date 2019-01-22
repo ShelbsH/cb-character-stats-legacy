@@ -12,6 +12,7 @@ type Character {
   powerLevel: String!
   avatarUrl: String
   publisher: String!
+  description: String!
   createdAt: Date
   updatedAt: Date
 }
@@ -23,6 +24,7 @@ input addCharacterProfile {
   powerLevel: String!
   avatarUrl: String
   publisher: String!
+  description: String!
 }
 
 input updateCharacterProfile {

@@ -8,6 +8,7 @@ interface ICharacter extends Document {
   avatarUrl?: string;
   publisher: string;
   showings?: object[];
+  description: string;
 }
 
 const characterSchema = new Schema(
@@ -36,6 +37,11 @@ const characterSchema = new Schema(
     publisher: { 
       required: true, 
       type: String
+     },
+     description: {
+       required: false,
+       type: String,
+       default: 'N/A'
      }
   },
   {

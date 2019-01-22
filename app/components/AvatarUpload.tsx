@@ -117,7 +117,7 @@ export class AvatarUpload extends React.Component<{}, State> {
     image: HTMLImageElement,
     pixelCrop: PixelCrop,
     fileName: string
-  ) {
+  ): Promise<string> {
     const canvas = document.createElement('canvas');
     canvas.width = pixelCrop.width;
     canvas.height = pixelCrop.height;
