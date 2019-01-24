@@ -98,8 +98,8 @@ export class AvatarUpload extends React.Component<{}, State> {
     });
   };
 
-  async makeClientCrop(crop: Crop, pixelCrop: PixelCrop) {
-    if (this.imageRef && crop.width && crop.height) {
+  makeClientCrop = async (crop: Crop, pixelCrop: PixelCrop) => {
+    if (this.imageRef && crop.width) {
       const croppedImageUrl = (await this.getCroppedImg(
         this.imageRef,
         pixelCrop,
@@ -107,10 +107,13 @@ export class AvatarUpload extends React.Component<{}, State> {
       )) as string;
       this.setState({ croppedImageUrl });
     }
-  }
+  };
 
-  onImageLoaded = (image: HTMLImageElement) => {
+  onImageLoaded = (image: HTMLImageElement, pixelCrop: PixelCrop) => {
+    const { crop } = this.state;
+
     this.imageRef = image;
+    this.makeClientCrop(crop, pixelCrop);
   };
 
   getCroppedImg(
