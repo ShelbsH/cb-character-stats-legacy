@@ -3,25 +3,35 @@ import { Upload, Icon, Modal, message } from 'antd';
 import ReactCrop, { Crop, PixelCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
+type Image = {
+  imgUrl: string;
+  croppedImageUrl: null | string;
+  blobFile: null | File;
+  imageName: string;
+  imageType: string;
+};
+
 type State = {
-  imgUrl: string | null;
+  image: Image;
   isVisible: boolean;
   crop: Crop;
-  croppedImageUrl: null | string;
-  blobFile: null | Blob;
 };
 
 const initialState = {
-  imgUrl: '',
+  image: {
+    imgUrl: '',
+    croppedImageUrl: null,
+    blobFile: null,
+    imageName: '',
+    imageType: ''
+  },
   isVisible: false,
   crop: {
     x: 0,
     y: 0,
     width: 30,
     aspect: 1
-  },
-  croppedImageUrl: null,
-  blobFile: null
+  }
 };
 
 const uploadButton = (
@@ -44,14 +54,18 @@ export class AvatarUpload extends React.Component<{}, State> {
   }
 
   onModalCancel = () => {
+    const { image } = this.state;
     this.setState({
       isVisible: false,
-      croppedImageUrl: null
+      image: {
+        ...image,
+        croppedImageUrl: null
+      }
     });
   };
 
   onModalOk = () => {
-    const { imgUrl, croppedImageUrl } = this.state;
+    const { imgUrl, croppedImageUrl } = this.state.image;
 
     if (imgUrl && croppedImageUrl) {
       this.setState({
@@ -63,25 +77,34 @@ export class AvatarUpload extends React.Component<{}, State> {
   };
 
   onBeforeUpload = (file: Blob) => {
-    const fileTypes = /^image\/(jpeg|png)$/;
+    const fileTypes = /^image\/(jpeg|jpg|png)$/;
 
+    //Acceptable image file types
     if (!fileTypes.test(file.type)) {
-      message.error('Only .jpeg and .png file types are accepted');
+      message.error(
+        'Only .jpeg, jpg, and .png file types are accepted'
+      );
     }
 
     return fileTypes.exec(file.type) === null;
   };
 
   onImageChange = ({ file }) => {
-    const { crop } = initialState;
+    const { crop, image } = initialState;
+    const { name, type } = file;
     const fileReader = new FileReader();
 
     fileReader.onload = () => {
       let result = fileReader.result as string;
+
       this.setState({
-        imgUrl: result,
-        croppedImageUrl: null,
-        isVisible: true
+        isVisible: true,
+        image: {
+          ...image,
+          imgUrl: result,
+          imageName: name,
+          imageType: type
+        }
       });
     };
 
@@ -100,16 +123,26 @@ export class AvatarUpload extends React.Component<{}, State> {
 
   makeClientCrop = async (crop: Crop, pixelCrop: PixelCrop) => {
     if (this.imageRef && crop.width) {
+      const { image } = this.state;
       const croppedImageUrl = (await this.getCroppedImg(
         this.imageRef,
         pixelCrop,
         'newFile.jpeg'
       )) as string;
-      this.setState({ croppedImageUrl });
+
+      this.setState({
+        image: {
+          ...image,
+          croppedImageUrl
+        }
+      });
     }
   };
 
-  onImageLoaded = (image: HTMLImageElement, pixelCrop: PixelCrop) => {
+  onImageLoaded: any = (
+    image: HTMLImageElement,
+    pixelCrop: PixelCrop
+  ) => {
     const { crop } = this.state;
 
     this.imageRef = image;
@@ -141,11 +174,15 @@ export class AvatarUpload extends React.Component<{}, State> {
     }
 
     return new Promise(resolve => {
+      const {
+        image: { imageType }
+      } = this.state;
+
       canvas.toBlob(blob => {
         window.URL.revokeObjectURL(this.fileUrl);
         this.fileUrl = window.URL.createObjectURL(blob);
         resolve(this.fileUrl);
-      }, 'image/jpeg');
+      }, imageType);
     });
   }
 
@@ -156,15 +193,26 @@ export class AvatarUpload extends React.Component<{}, State> {
   croppedImgToBlob = async (blobUrl: string): Promise<void> => {
     return await fetch(blobUrl).then(data => {
       data.blob().then(result => {
+        const {
+          image,
+          image: { imageName }
+        } = this.state;
+
         this.setState({
-          blobFile: result
+          image: {
+            ...image,
+            blobFile: new File([result], imageName, {
+              type: result.type
+            })
+          }
         });
       });
     });
   };
 
   render() {
-    const { croppedImageUrl, imgUrl, isVisible, crop } = this.state;
+    const { isVisible, crop } = this.state;
+    const { croppedImageUrl, imgUrl } = this.state.image;
 
     return (
       <div className="upload-container">
