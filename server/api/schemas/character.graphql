@@ -1,4 +1,5 @@
 scalar Date
+scalar Upload
 
 type updateMessage {
   message: String
@@ -24,7 +25,8 @@ input addCharacterProfile {
   powerLevel: String!
   avatarUrl: String
   publisher: String!
-  description: String!
+  description: String
+  imageUpload: Upload
 }
 
 input updateCharacterProfile {
