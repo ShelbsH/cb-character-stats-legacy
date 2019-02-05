@@ -1,4 +1,5 @@
 import { NotFoundError, UnknownError } from './errors';
+import { addAvatar } from '../../utils/s3_upload';
 
 export const resolvers = {
   Query: {
@@ -12,7 +13,8 @@ export const resolvers = {
       if (!response.length) {
         throw new NotFoundError({
           data: {
-            message: "There's no character that exists in the database. Create some"
+            message:
+              'There\'s no character that exists in the database'
           }
         });
       }
@@ -20,10 +22,28 @@ export const resolvers = {
     }
   },
   Mutation: {
-    addCharacterProfile: async (_, { input }, ctx) => {
+    addCharacterProfile: async (
+      _,
+      { input, input: { imageUpload } },
+      ctx
+    ) => {
+      const {
+        filename,
+        mimetype,
+        createReadStream
+      } = await imageUpload;
+      const stream = createReadStream(filename);
+
       try {
+        const { Location } = await addAvatar(
+          filename,
+          stream,
+          mimetype
+        );
+
         return await new ctx.models.character({
-          ...input
+          ...input,
+          avatarUrl: Location || 'someUrl.com'
         }).save();
       } catch (error) {
         throw new UnknownError({
