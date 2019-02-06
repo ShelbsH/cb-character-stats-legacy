@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab');
 @import '../styles/modules/variables';
 
+html {
+  font-size: 62.5%;
+}
+
 body {
   background-color: #262626;
 }

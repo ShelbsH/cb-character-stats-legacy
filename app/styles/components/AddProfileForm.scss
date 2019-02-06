@@ -2,33 +2,33 @@
 @import '../modules/responsive';
 
 .head-title {
-  margin-bottom: 2px;
+  margin-bottom: 0.2rem;
 }
 
 .characterForm {
   border: 1px solid #121212;
-  padding: 28px;
-  border-radius: 5px;
+  padding: 2.8rem;
+  border-radius: 0.3125rem;
   background-color: #1e1e1e;
   .input-tags {
     width: 100%;
   }
   .input-select {
-    width: 170px;
+    width: 17rem;
   }
   .characterForm-border {
     border: none;
-    height: 1px;
+    height: 0.0625rem;
     background-color: #595959;
   }
   .btnCreate {
-    margin-top: 20px;
+    margin-top: 2rem;
   }
 }
 
 .avatar-uploader > .ant-upload {
-  width: 200px;
-  height: 200px;
+  width: 20rem;
+  height: 20rem;
 }
 
 .ant-upload.ant-upload-select-picture-card {

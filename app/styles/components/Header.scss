@@ -1,23 +1,23 @@
 @import '../modules/variables';
 @import '../modules/responsive';
 
-$header-height: 60px;
+$header-height: 6rem;
 
 @mixin purple-border {
   border: none;
-  border-top: 2px solid $purple;
+  border-top: 0.2rem solid $purple;
 }
 
 .header-root {
   display: flex;
   flex-direction: row;
-  padding: 0 30px;
-  box-shadow: 0px 1px 20px 1px rgba(0, 0, 0, 0.4);
+  padding: 0 3rem;
+  box-shadow: 0 0.1rem 2rem 0.1rem rgba(0, 0, 0, 0.4);
   flex: 1;
   max-height: $header-height;
   background-color: $background-color;
   .header-col:last-child {
-    padding-left: 150px;
+    padding-left: 15rem;
   }
   .header-col {
     display: flex;
@@ -30,7 +30,7 @@ $header-height: 60px;
 .header-menu {
   border: none;
   text-align: right;
-  line-height: 60px;
+  line-height: 6rem;
   .header-menu-item {
     color: $white;
   }
@@ -42,19 +42,19 @@ $header-height: 60px;
 }
 
 .header-search-container {
-  width: 461px;
+  width: 46.1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   .header-search-icon {
     color: $white;
-    padding: 0 5px;
+    padding: 0 0.5rem;
   }
   .header-search-input {
     border: none;
     background-color: inherit;
     color: $white;
-    font-size: 17px;
+    font-size: 1.7rem;
     &:focus {
       border: none;
       outline: none;
@@ -71,7 +71,7 @@ $header-height: 60px;
   .header-logo-title {
     color: $white;
     margin: 0;
-    font-size: 17px;
+    font-size: 1.7rem;
     .header-logo-link {
       color: $white;
       text-decoration: none;
@@ -79,9 +79,9 @@ $header-height: 60px;
   }
   .header-logo-menu {
     color: $white;
-    font-size: 20px;
-    padding: 20px 28px;
-    margin-left: 20px;
+    font-size: 2rem;
+    padding: 2rem 2.8rem;
+    margin-left: 2rem;
   }
   .header-logo-menu:hover {
     background: rgba(255, 255, 255, 0.04);
@@ -92,7 +92,7 @@ $header-height: 60px;
 .menu-bar-icon {
   display: none;
   color: $white;
-  font-size: 20px;
+  font-size: 2rem;
   cursor: pointer;
   &:hover {
     color: $purple;
@@ -101,9 +101,9 @@ $header-height: 60px;
 
 .header-menu-dropdown {
   display: none;
-  width: 250px;
-  padding: 10px;
-  margin-top: 5px;
+  width: 25rem;
+  padding: 1rem;
+  margin-top: 0.5rem;
   text-align: center;
   .header-menu-item:hover {
     background-color: $light-purple;
@@ -114,8 +114,8 @@ $header-height: 60px;
 .caret-up-icon {
   color: $white;
   position: absolute;
-  top: 40.5px;
-  font-size: 30px;
+  top: 40.05rem;
+  font-size: 3rem;
 }
 
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
@@ -124,7 +124,7 @@ $header-height: 60px;
 }
 
 .ant-menu-item-selected {
-  border-top: 2px solid $purple;
+  border-top: 0.02rem solid $purple;
 }
 
 .ant-menu-horizontal > .ant-menu-item-selected {

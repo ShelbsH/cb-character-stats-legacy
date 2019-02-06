@@ -2,24 +2,24 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-left: 40px;
+  padding-left: 4rem;
   .avatar-uploader {
     color: $white;
   }
   .avatar-uploadText {
     color: $white;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 1.5rem;
   }
   .avatar-icon {
     color: $white;
-    font-size: 40px;
+    font-size: 4rem;
   }
   .input-option:hover {
     background-color: $purple;
   }
   .croppedImage {
-    width: 300px;
-    height: 300px;
+    width: 19.8rem;
+    height: 19.8rem;
   }
 }
