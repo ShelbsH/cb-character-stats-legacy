@@ -381,6 +381,11 @@ export class AddProfileForm extends React.Component<Props, State> {
 
     message.success('The form has been submitted');
 
+    //Reset the Avatar image preview/crop upon successful submission
+    this.setState({
+      image: initialState.image
+    });
+
     /**
      * Reset the entire form, except for the initial select values
      * from the select input
