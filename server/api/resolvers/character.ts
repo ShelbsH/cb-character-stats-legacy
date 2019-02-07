@@ -1,5 +1,6 @@
 import { NotFoundError, UnknownError } from './errors';
 import { addAvatar } from '../../utils/s3_upload';
+import uuid from 'uuid/v4';
 
 export const resolvers = {
   Query: {
@@ -14,7 +15,7 @@ export const resolvers = {
         throw new NotFoundError({
           data: {
             message:
-              'There\'s no character that exists in the database'
+              "There's no character that exists in the database"
           }
         });
       }
@@ -27,23 +28,31 @@ export const resolvers = {
       { input, input: { imageUpload } },
       ctx
     ) => {
-      const {
-        filename,
-        mimetype,
-        createReadStream
-      } = await imageUpload;
-      const stream = createReadStream(filename);
-
+      
+      //Avatar default
+      let location = 'someAvatar.com';
+      
       try {
-        const { Location } = await addAvatar(
-          filename,
-          stream,
-          mimetype
-        );
+        if (imageUpload !== null) {
+          const {
+            filename,
+            mimetype,
+            createReadStream
+          } = await imageUpload;
+          const stream = createReadStream(filename);
+
+          const { Location } = await addAvatar(
+            filename,
+            stream,
+            mimetype
+          );
+
+          location = Location;
+        }
 
         return await new ctx.models.character({
           ...input,
-          avatarUrl: Location || 'someUrl.com'
+          avatarUrl: location
         }).save();
       } catch (error) {
         throw new UnknownError({
