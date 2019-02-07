@@ -1,5 +1,6 @@
 import AWS from 'aws-sdk';
 import S3 from 'aws-sdk/clients/s3';
+import uuid from 'uuid/v4';
 
 AWS.config.update({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -21,7 +22,7 @@ export const addAvatar = async (filename, stream, fileType) => {
 
   return await s3
     .upload({
-      Key: `avatar/${filename}`,
+      Key: `avatar/${uuid()}-${filename}`,
       Body: stream,
       Bucket: 'cb-character-stats',
       ACL: 'public-read',
