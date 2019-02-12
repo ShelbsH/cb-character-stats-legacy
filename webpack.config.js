@@ -13,7 +13,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 let devEntry = [
   './app/index.tsx',
   'webpack/hot/only-dev-server',
-  'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr&reload=true'
+  'webpack-hot-middleware/client'
 ];
 let prodEntry = ['./app/index.tsx'];
 
