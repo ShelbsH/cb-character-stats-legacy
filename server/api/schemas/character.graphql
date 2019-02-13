@@ -12,7 +12,7 @@ type Character {
   abilities: [String!]!
   powerLevel: String!
   avatarUrl: String
-  publisher: String!
+  publisher: Publisher!
   description: String!
   createdAt: Date
   updatedAt: Date
@@ -46,4 +46,9 @@ type Mutation {
   addCharacterProfile(input: addCharacterProfile): Character
   removeCharacterProfile(id: ID!): updateMessage
   updateCharacterProfile(id: ID!, input: updateCharacterProfile): Character
+}
+
+enum Publisher {
+  DC 
+  Marvel
 }
