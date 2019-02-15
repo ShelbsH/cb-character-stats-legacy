@@ -31,9 +31,6 @@ class ServerApp {
 
   private config = () => {
     dotenv.config();
-    //=============================================
-    // Connect to MongoDB
-    this.connectMongo(<string>process.env.MONGODB_CONNECT);
 
     //=============================================
     // Standard tools to be used for the webpack
@@ -47,20 +44,26 @@ class ServerApp {
     // Set the identifier to set the file path directory
     const filePath = path.resolve(__dirname, 'dist/');
 
-    //=============================================
-    // webpackDevMiddleware should be only used in development
-
     this.app.use(cors());
 
-    this.app.use(
-      webpackDevMiddleware(compiler, {
-        filePath: '/',
-        contentBase: filePath,
-        hot: true
-      })
-    );
+    if (process.env.NODE_ENV !== 'test') {
 
-    this.app.use(require('webpack-hot-middleware')(compiler));
+      //=============================================
+      // Connect to MongoDB
+      this.connectMongo(<string>process.env.MONGODB_CONNECT);
+
+      //=============================================
+      // Apply WebpackDevMiddleware
+      this.app.use(
+        webpackDevMiddleware(compiler, {
+          filePath: '/',
+          contentBase: filePath,
+          hot: true
+        })
+      );
+
+      this.app.use(require('webpack-hot-middleware')(compiler));
+    }
 
     this.app.use(bodyParser.json());
     this.app.use(
