@@ -43,7 +43,7 @@ type Query {
 }
 
 type Mutation {
-  addCharacterProfile(input: addCharacterProfile): Character
+  addCharacterProfile(input: addCharacterProfile): updateMessage
   removeCharacterProfile(id: ID!): updateMessage
   updateCharacterProfile(id: ID!, input: updateCharacterProfile): Character
 }
