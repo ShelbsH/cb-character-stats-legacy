@@ -15,9 +15,10 @@ export class AddCharacterProfile extends React.Component {
         <div className="characterForm">
           {/*TODO: Add error handling when the form is submitted*/}
           <Mutation mutation={ADD_CHARACTER}>
-            {addCharacterProfile => (
+            {(addCharacterProfile, { loading, data }) => (
               <AddProfileForm
                 addCharacterProfile={addCharacterProfile}
+                isSuccess={!(loading === false && data !== null)}
               />
             )}
           </Mutation>
