@@ -47,11 +47,6 @@ class ServerApp {
     this.app.use(cors());
 
     if (process.env.NODE_ENV !== 'test') {
-
-      //=============================================
-      // Connect to MongoDB
-      this.connectMongo(<string>process.env.MONGODB_CONNECT);
-
       //=============================================
       // Apply WebpackDevMiddleware
       this.app.use(
@@ -63,6 +58,10 @@ class ServerApp {
       );
 
       this.app.use(require('webpack-hot-middleware')(compiler));
+
+      //=============================================
+      // Connect to MongoDB
+      this.connectMongo(<string>process.env.MONGODB_CONNECT);
     }
 
     this.app.use(bodyParser.json());
