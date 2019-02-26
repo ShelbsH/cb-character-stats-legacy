@@ -26,6 +26,7 @@ type NestedObjType<T> = {
 
 type Props = {
   addCharacterProfile: (values: object) => void;
+  isSuccess?: boolean;
 };
 
 type FormProps = {
@@ -192,6 +193,20 @@ export class AddProfileForm extends React.Component<Props, State> {
     super(props);
 
     this.state = initialState;
+  }
+
+  componentDidUpdate(prevProps) {
+    const { isSuccess } = prevProps;
+
+    //Reset the avatar upon successful completion.
+    if (isSuccess === true) {
+      //Reset the Avatar image preview/crop upon successful submission
+      this.setState({
+        image: initialState.image
+      });
+
+      message.success('The form has been submitted');
+    }
   }
 
   onModalCancel = () => {
@@ -377,13 +392,6 @@ export class AddProfileForm extends React.Component<Props, State> {
           imageUpload: blobFile
         }
       }
-    });
-
-    message.success('The form has been submitted');
-
-    //Reset the Avatar image preview/crop upon successful submission
-    this.setState({
-      image: initialState.image
     });
 
     /**
