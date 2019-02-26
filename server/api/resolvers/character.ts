@@ -1,6 +1,5 @@
 import { NotFoundError, UnknownError } from './errors';
 import { addAvatar } from '../../utils/s3_upload';
-import uuid from 'uuid/v4';
 
 export const resolvers = {
   Query: {
@@ -23,17 +22,12 @@ export const resolvers = {
     }
   },
   Mutation: {
-    addCharacterProfile: async (
-      _,
-      { input, input: { imageUpload } },
-      ctx
-    ) => {
-      
+    addCharacterProfile: async (_, { input, input: { imageUpload } }, ctx) => {
       //Avatar default
       let location = 'someAvatar.com';
-      
-      try {
-        if (imageUpload !== null) {
+
+      if (imageUpload !== null) {
+        try {
           const {
             filename,
             mimetype,
@@ -48,12 +42,24 @@ export const resolvers = {
           );
 
           location = Location;
+        } catch (error) {
+          throw new UnknownError({
+            data: {
+              error
+            }
+          });
         }
+      }
 
-        return await new ctx.models.character({
+      try {
+        await new ctx.models.character({
           ...input,
           avatarUrl: location
         }).save();
+
+        return {
+          message: 'Character added successfully!'
+        }
       } catch (error) {
         throw new UnknownError({
           data: {
