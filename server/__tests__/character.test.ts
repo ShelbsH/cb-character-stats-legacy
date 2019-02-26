@@ -42,9 +42,9 @@ afterAll(async (done) => {
 
 describe('Mutations', () => {
   it('should add a new character', async () => {
-    const data = {
+    const expected = {
       addCharacterProfile: {
-        message: 'Character added successfully!'
+        message: 'Character has been added successfully!'
       }
     };
 
@@ -66,6 +66,6 @@ describe('Mutations', () => {
       }
     });
 
-    expect(res.data).toEqual(data);
+    expect(res.data).toEqual(expected);
   });
 });

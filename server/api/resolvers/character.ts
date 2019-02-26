@@ -58,7 +58,7 @@ export const resolvers = {
         }).save();
 
         return {
-          message: 'Character added successfully!'
+          message: 'Character has been added successfully!'
         }
       } catch (error) {
         throw new UnknownError({
