@@ -11,16 +11,16 @@
     "start": "ts-node server/server.ts",
     "heroku-postbuild": "NODE_ENV=production webpack -p",
     "prod": "cross-env NODE_ENV=production webpack --progress --colors --profile",
-    "test": "jest --watchAll --verbose"
+    "test-backend": "NODE_ENV=test jest --watchAll --verbose"
   },
   "jest": {
     "setupFiles": [
-      "<rootDir>/app/_tests_/test_setup.js"
+      "<rootDir>/app/__tests__/test_setup.js"
     ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testRegex": "(/__tests__/.*\\.(test|spec)\\.(tsx?|jsx?))",
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -36,7 +36,8 @@
     ],
     "moduleNameMapper": {
       "\\.(css|scss)$": "identity-obj-proxy"
-    }
+    },
+    "testEnvironment": "node"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
