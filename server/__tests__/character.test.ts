@@ -26,7 +26,10 @@ const ADD_CHARACTER = gql`
 `;
 
 const UPDATE_CHARACTER = gql`
-  mutation updateCharacterProfile($id: ID!, $update: updateCharacterProfile) {
+  mutation updateCharacterProfile(
+    $id: ID!
+    $update: updateCharacterProfile
+  ) {
     updateCharacterProfile(id: $id, input: $update) {
       name
       alias
@@ -35,12 +38,12 @@ const UPDATE_CHARACTER = gql`
 `;
 
 const REMOVE_CHARACTER = gql`
-  mutation removeCharacterProfile($id: id) {
+  mutation removeCharacterProfile($id: ID!) {
     removeCharacterProfile(id: $id) {
-      updateMessage
+      message
     }
   }
-`
+`;
 
 describe('Character', () => {
   beforeAll(async done => {
@@ -100,7 +103,7 @@ describe('Character', () => {
   });
 
   describe('Mutations', () => {
-    it('adds a new character to the system', async () => {
+    it('adds a new character to the db', async () => {
       const expected = {
         addCharacterProfile: {
           message: 'Character has been added successfully!'
@@ -111,7 +114,7 @@ describe('Character', () => {
 
       const { mutate } = createTestClient(server as any) as any;
 
-      const res = await mutate({
+      const { data } = await mutate({
         mutation: ADD_CHARACTER,
         variables: {
           form: {
@@ -130,10 +133,10 @@ describe('Character', () => {
         }
       });
 
-      expect(res.data).toEqual(expected);
+      expect({ data }.data).toEqual(expected);
     });
 
-    it('gets the added character from the system', async () => {
+    it('gets the added character from the db', async () => {
       const expected = {
         name: 'John Doe',
         alias: 'Super Doe',
@@ -153,15 +156,15 @@ describe('Character', () => {
       expect(data.getCharacterProfiles).toContainEqual(expected);
     });
 
-    it('should update the existing character from the system', async () => {
-      const { id } = await Character.findOne({
+    it('should update the existing character from the db', async () => {
+      const { id } = (await Character.findOne({
         name: 'John Doe'
-      }) as any;
+      })) as any;
 
       const update = {
         name: 'Jane Doe',
         alias: 'Super Jane'
-      }
+      };
 
       const { server } = await testServer();
 
@@ -179,6 +182,26 @@ describe('Character', () => {
       });
 
       expect(data.updateCharacterProfile).toEqual(update);
+    });
+
+    it('should remove the existing character from the db', async () => {
+      const { id } = (await Character.findOne({
+        name: 'Dick Grayson'
+      })) as any;
+
+      const { server } = await testServer();
+
+      const { mutate } = createTestClient(server as any) as any;
+
+      const { data: { removeCharacterProfile } } = await mutate({
+        mutation: REMOVE_CHARACTER,
+        variables: {
+          id: id
+        }
+      });
+
+      //TODO: The success message needs to be replaced with the success boolean
+      expect(removeCharacterProfile.message).toEqual('Character profile removed successfully');
     });
   });
 });
