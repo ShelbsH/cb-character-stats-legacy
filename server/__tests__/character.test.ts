@@ -25,6 +25,23 @@ const ADD_CHARACTER = gql`
   }
 `;
 
+const UPDATE_CHARACTER = gql`
+  mutation updateCharacterProfile($id: ID!, $update: updateCharacterProfile) {
+    updateCharacterProfile(id: $id, input: $update) {
+      name
+      alias
+    }
+  }
+`;
+
+const REMOVE_CHARACTER = gql`
+  mutation removeCharacterProfile($id: id) {
+    removeCharacterProfile(id: $id) {
+      updateMessage
+    }
+  }
+`
+
 describe('Character', () => {
   beforeAll(async done => {
     const { readyState } = mongoose.connection;
@@ -73,9 +90,9 @@ describe('Character', () => {
 
       const { query } = createTestClient(server as any);
 
-      const { data } = await query({
+      const { data } = (await query({
         query: GET_CHARACTER
-      }) as any;
+      })) as any;
 
       expect(data.getCharacterProfiles).not.toBeNull();
       expect(data.getCharacterProfiles).toHaveLength(3);
@@ -134,6 +151,34 @@ describe('Character', () => {
       })) as any;
 
       expect(data.getCharacterProfiles).toContainEqual(expected);
+    });
+
+    it('should update the existing character from the system', async () => {
+      const { id } = await Character.findOne({
+        name: 'John Doe'
+      }) as any;
+
+      const update = {
+        name: 'Jane Doe',
+        alias: 'Super Jane'
+      }
+
+      const { server } = await testServer();
+
+      const { mutate } = createTestClient(server as any) as any;
+
+      const { data } = await mutate({
+        mutation: UPDATE_CHARACTER,
+        variables: {
+          id,
+          update: {
+            name: update.name,
+            alias: update.alias
+          }
+        }
+      });
+
+      expect(data.updateCharacterProfile).toEqual(update);
     });
   });
 });
