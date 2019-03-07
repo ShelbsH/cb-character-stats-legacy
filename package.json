@@ -60,7 +60,6 @@
     "express": "^4.16.4",
     "formik": "^1.4.0",
     "graphql": "git://github.com/graphql/graphql-js.git#npm",
-    "graphql-import": "^0.7.1",
     "mongoose": "^5.3.3",
     "react-apollo": "^2.2.4",
     "react-image-crop": "^6.0.11",

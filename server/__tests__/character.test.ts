@@ -20,6 +20,7 @@ const GET_CHARACTER = gql`
 const ADD_CHARACTER = gql`
   mutation addCharacterProfile($form: addCharacterProfile!) {
     addCharacterProfile(input: $form) {
+      success
       message
     }
   }
@@ -40,6 +41,7 @@ const UPDATE_CHARACTER = gql`
 const REMOVE_CHARACTER = gql`
   mutation removeCharacterProfile($id: ID!) {
     removeCharacterProfile(id: $id) {
+      success
       message
     }
   }
@@ -74,7 +76,7 @@ describe('Character', () => {
     if (db.collection.length) {
       await db.dropDatabase(error => {
         if (error) {
-          throw new Error(error.toString());
+          throw new Error(error.message);
         }
       });
     }
@@ -93,22 +95,17 @@ describe('Character', () => {
 
       const { query } = createTestClient(server as any);
 
-      const { data } = (await query({
+      const { data: { getCharacterProfiles } } = (await query({
         query: GET_CHARACTER
       })) as any;
 
-      expect(data.getCharacterProfiles).not.toBeNull();
-      expect(data.getCharacterProfiles).toHaveLength(3);
+      expect(getCharacterProfiles).not.toBeNull();
+      expect(getCharacterProfiles).toHaveLength(3);
     });
   });
 
   describe('Mutations', () => {
     it('adds a new character to the db', async () => {
-      const expected = {
-        addCharacterProfile: {
-          message: 'Character has been added successfully!'
-        }
-      };
 
       const { server } = await testServer();
 
@@ -133,7 +130,10 @@ describe('Character', () => {
         }
       });
 
-      expect({ data }.data).toEqual(expected);
+      const { addCharacterProfile: { success, message } } = data;
+
+      expect(success).toEqual(true);
+      expect(message).toBe('Character has been added successfully!');
     });
 
     it('gets the added character from the db', async () => {
@@ -153,10 +153,12 @@ describe('Character', () => {
         query: GET_CHARACTER
       })) as any;
 
-      expect(data.getCharacterProfiles).toContainEqual(expected);
+      const { getCharacterProfiles } = data;
+
+      expect(getCharacterProfiles).toContainEqual(expected);
     });
 
-    it('should update the existing character from the db', async () => {
+    it('updates the existing character from the db', async () => {
       const { id } = (await Character.findOne({
         name: 'John Doe'
       })) as any;
@@ -170,21 +172,20 @@ describe('Character', () => {
 
       const { mutate } = createTestClient(server as any) as any;
 
-      const { data } = await mutate({
+      const { data: { updateCharacterProfile } } = await mutate({
         mutation: UPDATE_CHARACTER,
         variables: {
           id,
           update: {
-            name: update.name,
-            alias: update.alias
+            ...update
           }
         }
       });
 
-      expect(data.updateCharacterProfile).toEqual(update);
+      expect(updateCharacterProfile).toEqual(update);
     });
 
-    it('should remove the existing character from the db', async () => {
+    it('removes the existing character from the db', async () => {
       const { id } = (await Character.findOne({
         name: 'Dick Grayson'
       })) as any;
@@ -193,15 +194,17 @@ describe('Character', () => {
 
       const { mutate } = createTestClient(server as any) as any;
 
-      const { data: { removeCharacterProfile } } = await mutate({
+      const { data } = await mutate({
         mutation: REMOVE_CHARACTER,
         variables: {
-          id: id
+          id
         }
       });
 
-      //TODO: The success message needs to be replaced with the success boolean
-      expect(removeCharacterProfile.message).toEqual('Character profile removed successfully');
+      const { removeCharacterProfile: { message, success } } = data;
+
+      expect(success).toEqual(true);
+      expect(message).toEqual('Character profile removed successfully');
     });
   });
 });

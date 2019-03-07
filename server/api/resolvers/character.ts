@@ -13,6 +13,7 @@ export const resolvers = {
       if (!response.length) {
         throw new NotFoundError({
           data: {
+            success: false,
             message:
               "There's no character that exists in the database"
           }
@@ -22,7 +23,11 @@ export const resolvers = {
     }
   },
   Mutation: {
-    addCharacterProfile: async (_, { input, input: { imageUpload } }, ctx) => {
+    addCharacterProfile: async (
+      _,
+      { input, input: { imageUpload } },
+      ctx
+    ) => {
       //Avatar default
       let location = 'someAvatar.com';
 
@@ -45,6 +50,7 @@ export const resolvers = {
         } catch (error) {
           throw new UnknownError({
             data: {
+              success: false,
               error
             }
           });
@@ -58,11 +64,13 @@ export const resolvers = {
         }).save();
 
         return {
+          success: true,
           message: 'Character has been added successfully!'
-        }
+        };
       } catch (error) {
         throw new UnknownError({
           data: {
+            success: false,
             error
           }
         });
@@ -84,6 +92,7 @@ export const resolvers = {
       } catch (error) {
         throw new UnknownError({
           data: {
+            success: false,
             error
           }
         });
@@ -100,14 +109,20 @@ export const resolvers = {
             character: id
           });
           return {
+            success: true,
             message: 'Character profile removed successfully'
           };
         } else {
-          throw new UnknownError();
+          throw new UnknownError({
+            data: {
+              success: false
+            }
+          });
         }
       } catch (error) {
         throw new UnknownError({
           data: {
+            success: false,
             error
           }
         });

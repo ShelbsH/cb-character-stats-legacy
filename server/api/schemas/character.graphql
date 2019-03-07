@@ -1,9 +1,9 @@
 scalar Date
 scalar Upload
 
-#TODO: add a success boolean 
 type updateMessage {
-  message: String
+  message: String!
+  success: Boolean!
 }
 
 type Character {
